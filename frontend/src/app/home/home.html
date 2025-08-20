@@ -1,0 +1,27 @@
+<div class="homepage-header">
+    <img src="favicon.ico" class="homepage-logo" alt="Logo" />
+    <span class="homepage-brand">Amazon 2</span>
+</div>
+
+<div class="queryBar">
+    <input class="idSearchInput input" [(ngModel)]="searchId" placeholder="Product ID" (keyup)="onSearch()" />
+    <input class="searchInput input" [(ngModel)]="searchName" placeholder="Product Name" (keyup)="onSearch()" />
+    <select class="searchCategory select" [(ngModel)]="selectedCategory" name="Category" (change)="onSearch()"
+        style="width: 120px; font-size: 0.9em">
+        <option value="">All</option>
+        <option *ngFor="let category of categoryOptions" [value]="category">
+            {{ category }}
+        </option>
+    </select>
+    <input id="searchButton" class="search-btn" type="button" (click)="onSearch()" value="Search" />
+</div>
+
+<div id="resultsCount" class="results-count">
+    Showing {{searchResults.length === 0 ? 0 : ((currentPage - 1) * maximumProductPerPage) + 1}}-{{Math.min(currentPage * maximumProductPerPage, this.searchResults.length)}} of {{this.searchResults.length}} results
+</div>
+<div id="searchResults" class="homepage-results">
+    <app-product-box *ngFor="let product of productList" [product]="product">
+    </app-product-box>
+</div>
+
+<app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)"></app-pagination>

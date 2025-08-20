@@ -1,0 +1,12 @@
+<div class="suggestions-title">Similar Products</div>
+<div id="suggestions-list" class="suggestions-list" *ngFor="let product of similar()">
+    <div class="suggestion-item">
+        <img [src]="product.imageurl" class="suggestion-img" />
+        <div class="suggestion-info">
+            <div class="suggestion-name">{{product.name}}</div>
+            <div class="suggestion-price">${{product.price}}</div>
+        </div>
+        <button class="suggestion-view-btn" (click)="onProductClick(product)">View</button>
+    </div>
+</div>
+<app-pagination [currentPage]="currentPage()" [totalPages]="totalPages()" (pageChange)="onPageChange($event)"></app-pagination>

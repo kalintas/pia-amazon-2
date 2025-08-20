@@ -1,0 +1,8 @@
+<img [src]="product.imageurl" class="productImage" alt="Product image">
+<div class="productName">{{ product.name }}</div>
+<div class="productCategory">{{ product.category }}</div>
+<div class="productDescription">{{ product.description }}</div>
+<div class="productPrice">${{ product.price }}</div>
+<div class="product-actions">
+    <button class="product-quick-add-btn" (click)="addToCart($event)">Add to Cart</button>
+</div>

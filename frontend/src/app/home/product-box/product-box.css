@@ -1,0 +1,89 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    cursor: pointer;
+    flex: 0 0 20%;
+    margin: 10px;
+    padding: 10px;
+    border-style: solid;
+    border-color: gray;
+    border-width: 2px;
+    border-radius: 3px;
+    box-shadow: 2px 5px 5px gray;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+}
+
+:host:link {
+    text-decoration: none;
+}
+
+:host:visited {
+    text-decoration: none;
+}
+
+:host:hover {
+    text-decoration: none;
+}
+
+:host:active {
+    text-decoration: none;
+}
+
+.productName {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.productPrice {
+    text-align: center;
+    margin-top: 2px;
+    margin-bottom: 30px;
+    font-size: 2em;
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+.productImage {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.product-actions {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.product-quick-add-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    background: #1976d2;
+    color: white;
+}
+
+.product-quick-add-btn:hover {
+    background: #1565c0;
+}
+
+@media (max-width: 600px) {
+    :host {
+        flex: 0 0 100%;
+        width: 100%;
+        margin: 10px 0;
+        box-sizing: border-box;
+    }
+    .productImage {
+        height: 160px;
+    }
+}

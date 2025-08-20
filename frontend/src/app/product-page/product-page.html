@@ -1,0 +1,11 @@
+<div class="product-detail">
+    <img [src]="product.imageurl" class="product-detail-image">
+    <div class="product-detail-name">{{product.name}}</div>
+    <div class="product-detail-id">ID: {{product.id}}</div>
+    <div class="product-detail-category">{{product.category}}</div>
+    <div class="product-detail-description">{{product.description}}</div>
+    <div class="product-detail-price">${{product.price}}</div>
+    <button class="product-detail-add-to-cart" onclick="addToCart('${product.id}')">Add to Cart</button>
+    <button class="product-detail-back" (click)="this.router.navigate(['/'])">Back to Home</button>
+</div>
+<app-suggestions [product]="product"></app-suggestions>

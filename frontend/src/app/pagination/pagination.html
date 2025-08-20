@@ -1,0 +1,55 @@
+<button
+class="pagination-btn"
+[disabled]="currentPage === 1"
+(click)="onPageChange(1)">
+<<
+</button>
+<button
+class="pagination-btn"
+[disabled]="currentPage === 1"
+(click)="onPageChange(currentPage - 1)">
+<
+</button>
+
+<ng-container *ngIf="pageRange().startPage > 1">
+<button
+    class="pagination-btn"
+    [class.active]="currentPage === 1"
+    (click)="onPageChange(1)">
+    1
+</button>
+</ng-container>
+
+<span class="pagination-ellipsis" *ngIf="pageRange().startPage > 2">...</span>
+
+<button
+*ngFor="let page of pageNumbers()"
+class="pagination-btn"
+[class.active]="page === currentPage"
+(click)="onPageChange(page)">
+{{ page }}
+</button>
+
+<span class="pagination-ellipsis" *ngIf="pageRange().endPage < totalPages - 1">...</span>
+
+<ng-container *ngIf="totalPages > maxPagesToShow">
+<button
+    class="pagination-btn"
+    [class.active]="currentPage === totalPages"
+    (click)="onPageChange(totalPages)">
+    {{ totalPages }}
+</button>
+</ng-container>
+
+<button
+class="pagination-btn"
+[disabled]="currentPage === totalPages"
+(click)="onPageChange(currentPage + 1)">
+>
+</button>
+<button
+class="pagination-btn"
+[disabled]="currentPage === totalPages"
+(click)="onPageChange(totalPages)">
+>>
+</button>
