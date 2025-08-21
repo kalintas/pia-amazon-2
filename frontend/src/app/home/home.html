@@ -3,6 +3,15 @@
     <span class="homepage-brand">Amazon 2</span>
 </div>
 
+<button class="cart-btn" (click)="togleCart()">
+    🛒 Cart ({{cartItemCount}})
+</button>
+    <app-cart></app-cart>
+
+<button class="profile-btn" (click)="toProfilePage()">
+    Sign In
+</button>
+
 <div class="queryBar">
     <input class="idSearchInput input" [(ngModel)]="searchId" placeholder="Product ID" (keyup)="onSearch()" />
     <input class="searchInput input" [(ngModel)]="searchName" placeholder="Product Name" (keyup)="onSearch()" />

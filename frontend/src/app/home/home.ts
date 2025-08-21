@@ -1,14 +1,16 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { ProductBox } from './product-box/product-box';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Product, ProductDatabase } from '../product_database';
 import { Router } from '@angular/router';
 import { Pagination } from "../pagination/pagination";
+import { Cart } from '../cart/cart';
+import { ProfilePage } from '../profile-page/profile-page';
 
 @Component({
     selector: 'app-home',
-    imports: [ProductBox, CommonModule, FormsModule, Pagination],
+    imports: [ProductBox, CommonModule, FormsModule, Pagination, Cart, ProfilePage],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })
@@ -67,5 +69,17 @@ export class Home {
     @HostListener("window:resize", [])
     onWindowResize() {
         this.maximumProductPerPage = window.innerWidth <= 600 ? 20 : 60;
+    }
+
+    cartItemCount: number = 0;
+    @ViewChild(Cart) cartComponent!: Cart;
+    @ViewChild(ProfilePage) profileComponent!: ProfilePage;
+
+    togleCart() {
+        this.cartComponent.open.set(!this.cartComponent.open());
+    }
+
+    toProfilePage() {
+        this.router.navigate(['/signin']);
     }
 }
