@@ -7,10 +7,11 @@ import { Pagination } from "../pagination/pagination";
 import { Cart } from '../cart/cart';
 import { ProfilePage } from '../profile-page/profile-page';
 import { Header } from '../header/header';
+import { Footer } from '../footer/footer';
 
 @Component({
     selector: 'app-home',
-    imports: [ProductBox, CommonModule, FormsModule, Pagination, Cart, ProfilePage, Header],
+    imports: [ProductBox, CommonModule, FormsModule, Pagination, Cart, ProfilePage, Header, Footer],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })
