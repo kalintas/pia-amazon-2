@@ -1,0 +1,91 @@
+:host {
+    height: 100%;
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.signin-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f4f6f9;
+}
+
+.signin-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 350px;
+    max-width: 100%;
+}
+
+.signin-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+}
+
+.signin-brand {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.signin-username,
+.signin-password {
+    width: 90%;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.signin-button {
+    width: 100%;
+    padding: 12px;
+    background: #0078d7;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.signin-button:hover {
+    background: #005fa3;
+}
+
+.back-to-home {
+    background: #1976d2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+.back:hover {
+    background: #1565c0;
+}
+
+
