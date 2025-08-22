@@ -6,7 +6,7 @@ import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-header',
-  imports: [Cart,AuthPage],
+  imports: [Cart],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -22,9 +22,5 @@ export class Header {
 
   togleCart() {
     this.cartComponent.open.set(!this.cartComponent.open());
-  }
-
-  toProfilePage() {
-    this.router.navigate(['/signin']);
   }
 }

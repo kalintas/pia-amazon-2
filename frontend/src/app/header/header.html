@@ -5,11 +5,6 @@
     🛒 Cart ({{cartItemCount}})
 </button>
 
-<button class="profile-btn" (click)="toProfilePage()">
-    Sign In
-</button>
-    <app-cart></app-cart>
-
 @if (this.auth.currentUser) {
     <div>{{ this.auth.currentUser.uid }}</div>
 } @else {
@@ -17,3 +12,4 @@
         Sign In
     </button>
 }
+<app-cart></app-cart>

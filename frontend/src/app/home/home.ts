@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
-    imports: [ProductBox, CommonModule, FormsModule, Pagination, Cart, Header, Footer],
+    imports: [ProductBox, CommonModule, FormsModule, Pagination, Header, Footer],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })
