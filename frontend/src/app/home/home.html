@@ -16,6 +16,7 @@
     </button>
 }
 
+<app-header></app-header>
 <div class="queryBar">
     <input class="idSearchInput input" [(ngModel)]="searchId" placeholder="Product ID" (keyup)="onSearch()" />
     <input class="searchInput input" [(ngModel)]="searchName" placeholder="Product Name" (keyup)="onSearch()" />
@@ -38,3 +39,4 @@
 </div>
 
 <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)"></app-pagination>
+<app-footer></app-footer>

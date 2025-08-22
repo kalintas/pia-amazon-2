@@ -3,15 +3,16 @@ import { ProductBox } from './product-box/product-box';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Product, ProductDatabase } from '../product_database';
-import { Router } from '@angular/router';
 import { Pagination } from "../pagination/pagination";
 import { Cart } from '../cart/cart';
 import { AuthPage } from '../auth-page/auth-page';
+import { Header } from '../header/header';
+import { Footer } from '../footer/footer';
 import { Auth } from '@angular/fire/auth';
 
 @Component({
     selector: 'app-home',
-    imports: [ProductBox, CommonModule, FormsModule, Pagination, Cart],
+    imports: [ProductBox, CommonModule, FormsModule, Pagination, Cart, Header, Footer],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })
@@ -31,8 +32,8 @@ export class Home {
     totalPages: number;
     maximumProductPerPage: number;
     Math = Math;
-
-    constructor(private router: Router) {
+    
+    constructor() {
         this.maximumProductPerPage = window.innerWidth <= 600 ? 20 : 60;
         this.totalPages = Math.ceil(ProductDatabase.length / this.maximumProductPerPage);
     }

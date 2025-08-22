@@ -3,6 +3,9 @@ import { Home } from './home/home';
 import { ProductPage } from './product-page/product-page';
 import { NotFoundComponent } from './not-found-component/not-found-component';
 import { AuthPage } from './auth-page/auth-page';
+import { PrivacyPolicy } from './privacy-policy/privacy-policy';
+import { TermsOfService } from './terms-of-service/terms-of-service';
+import { ContactUs } from './contact-us/contact-us';
 
 export const routes: Routes = [
   {
@@ -20,15 +23,43 @@ export const routes: Routes = [
     component: AuthPage,
   },
   {
+    path: 'home',
+    component: Home
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicy
+  },
+  {
+    path: 'terms-of-service',
+    component: TermsOfService
+  },
+  {
+    path: 'contact-us',
+    component: ContactUs
+  },
+  {
+    path: 'home',
+    component: Home
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicy
+  },
+  {
+    path: 'terms-of-service',
+    component: TermsOfService
+  },
+  {
+    path: 'contact-us',
+    component: ContactUs
+  },
+  {
     path: '404',
     component: NotFoundComponent,
   },
   {
     path: '**',
     redirectTo: '404',
-  },
-  {
-    path: 'home',
-    component: Home
   }
 ];

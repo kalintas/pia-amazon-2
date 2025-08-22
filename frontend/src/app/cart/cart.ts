@@ -5,10 +5,10 @@ import { Component, EventEmitter, Output, signal } from '@angular/core';
   selector: 'app-cart',
   imports: [CommonModule],
   templateUrl: './cart.html',
-  styleUrl: './cart.css'
+  styleUrl: './cart.css',
 })
 export class Cart {
-
+  
   open = signal(false);
   items: any[] = []; 
 
