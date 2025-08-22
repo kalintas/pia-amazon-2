@@ -8,7 +8,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background: #fff;
+    background-color: #9dadbd;
     border-radius: 12px;
     box-shadow: 0 4px 24px rgba(25, 118, 210, 0.08);
     padding: 24px 32px;
@@ -99,5 +99,4 @@
     font-size: 1.1em;
     color: #333;
     margin: 0 0 10px 0;
-    padding-right: 10px;
 }

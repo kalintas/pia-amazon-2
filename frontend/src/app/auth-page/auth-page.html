@@ -1,17 +1,21 @@
 <div class="signin-page">
 
   <button class="back-to-home" (click)="backToHomePage()">
-    Back to Home
+    ← Back to Home
   </button>
   
   <div class="signin-box">
-    <img
-      src="account_login_log_in_icon_250759.ico"
-      class="signin-logo"
-      alt="Logo"
-    />
 
-    <span class="signin-brand">{{ pageSignIn() ? "Sign In" : "Sign Up" }}</span>
+    <img src="favicon.ico" alt="amazon-logo">
+
+    <span class="signin-brand">{{ getAuthString() }}</span>
+
+    <div class="social-media-buttons">
+      <button class="btn btn-google"><img src="google_logo_icon_169090.ico" alt="sign in with google">{{getAuthString()}} with Google</button>
+      <button class="btn btn-facebook"><img src="facebook_logo_icon_147291.ico" alt="sign in with facebook">{{getAuthString()}} with Facebook</button>
+      <button class="btn btn-apple"><img src="social_apple_mac_65.ico" alt="sign in with apple">{{getAuthString()}} with Apple</button>
+      <p class="or-line">or {{getAuthString()}} with Email</p>
+    </div>
 
     <form (submit)="onAuth($event)">
       @if (!pageSignIn()) {
@@ -23,19 +27,19 @@
         <input [formControl]="userPhoneNumber" type="tel" class="signin-username" placeholder="Phone number" required/>
       }
       <input [formControl]="userPassword" class="signin-password" type="password" placeholder="Password" required/>
-      <button class="signin-button" type="submit">{{ pageSignIn() ? "Sign In" : "Sign Up" }}</button>  
+      <span [style.display]="errorString().length === 0 ? 'none' : 'block'" class="error-message">{{errorString()}}</span>
+      <button class="signin-button" type="submit">{{ getAuthString() }}</button>  
     </form>
 
     @if (pageSignIn()) {
       <div>
-        If you don't have an account, <span (click)="pageSignIn.set(!pageSignIn())">Sign Up</span>
+        If you don't have an account, <span class="bottom-signup" (click)="pageSignIn.set(!pageSignIn())">Sign Up</span>
       </div>
     } @else {
       <div #signUp>
-          Already have an account?,  <span (click)="pageSignIn.set(!pageSignIn())">Log In</span>
+          Already have an account?,  <span class="bottom-signin" (click)="pageSignIn.set(!pageSignIn())">Sign In</span>
       </div>
     }
 
-    
   </div>
 </div>  

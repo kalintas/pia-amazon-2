@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 export class AuthPage {
 
   pageSignIn = signal(true);
+  errorString = signal('');
 
   private auth: Auth = inject(Auth);
   authState = authState(this.auth);
@@ -41,7 +42,7 @@ export class AuthPage {
 
       this.backToHomePage();
     }).catch((error) => {
-      console.error(error);
+      this.errorString.set(error.message);
     })
   } 
 
@@ -63,4 +64,7 @@ export class AuthPage {
     event.preventDefault();
   }
 
+  getAuthString() {
+    return this.pageSignIn() ? "Sign In" : "Sign Up";
+  }
 }
