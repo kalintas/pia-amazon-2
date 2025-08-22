@@ -9,7 +9,9 @@
 </div>
 
 @if (this.auth.currentUser) {
-    <div>{{ this.auth.currentUser.uid }}</div>
+    <div>
+        <img src="default_pp.png" class="profile-photo" alt="Default profile photo" (click)="this.router.navigate(['/profile'])">
+    </div>
 } @else {
     <button class="profile-btn" (click)="this.router.navigate(['/auth'])" #authButton>
         Sign In

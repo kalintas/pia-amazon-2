@@ -16,3 +16,15 @@ services:
     command: sh -c "npm ci && npx ng serve --host 0.0.0.0 --poll=2000"
     ports:
       - "4200:4200"
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: pia-db
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - 27017:27017
+
+  

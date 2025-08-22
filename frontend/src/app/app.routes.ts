@@ -6,6 +6,7 @@ import { AuthPage } from './auth-page/auth-page';
 import { PrivacyPolicy } from './privacy-policy/privacy-policy';
 import { TermsOfService } from './terms-of-service/terms-of-service';
 import { ContactUs } from './contact-us/contact-us';
+import { ProfilePage } from './profile-page/profile-page';
 
 export const routes: Routes = [
   {
@@ -17,10 +18,13 @@ export const routes: Routes = [
     path: 'product/:id',
     component: ProductPage,
   },
-
   {
     path: 'auth',
     component: AuthPage,
+  },
+  {
+    path: 'profile',
+    component: ProfilePage,
   },
   {
     path: 'home',

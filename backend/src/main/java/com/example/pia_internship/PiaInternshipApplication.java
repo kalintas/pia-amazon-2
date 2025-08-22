@@ -2,9 +2,9 @@ package com.example.pia_internship;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -16,7 +16,15 @@ import java.io.IOException;
 @SpringBootApplication
 public class PiaInternshipApplication {
 
-	public static void main(String[] args) throws IOException {
+    private UserRepository userRepository;
+
+    @Autowired
+    public PiaInternshipApplication(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public static void main(String[] args) throws IOException {
+
         /*
         FileInputStream serviceAccount =
         new FileInputStream("path/to/serviceAccountKey.json");
@@ -29,10 +37,27 @@ public class PiaInternshipApplication {
 		SpringApplication.run(PiaInternshipApplication.class, args);
 	}
 
-    @GetMapping("/login")
-    public String sayHello() {
-        return "";
+    @GetMapping("/api/signIn/{uid}")
+    public ResponseEntity<User> loginUser(@PathVariable("uid") String uid) {
+        var userOptional = userRepository.findByUid(uid);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.notFound().build();
     }
+    @PostMapping("/api/signUp/{uid}")
+    public ResponseEntity<Void> signUp(@RequestBody User user) {
+        var userOptional = userRepository.findByUid(user.getUid());
+        if (userOptional.isPresent()) {
+            // Already exists.
+            return ResponseEntity.badRequest().build();
+        }
+
+        userRepository.insert(user);
+        return ResponseEntity.ok().build();
+    }
+
     /*
     @GetMapping("/signUp")
     public String sayHello() {

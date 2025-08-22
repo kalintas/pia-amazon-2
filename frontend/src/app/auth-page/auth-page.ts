@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, authState, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from '@angular/fire/auth';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ApiService } from '../services/api-service';
+import { User } from '../interfaces/user';
 
 @Component({
   selector: 'app-auth-page',
@@ -18,6 +20,8 @@ export class AuthPage {
   errorString = signal('');
 
   private auth: Auth = inject(Auth);
+  private apiService: ApiService = inject(ApiService);
+
   authState = authState(this.auth);
   authStateSubscription!: Subscription;
 
@@ -36,23 +40,50 @@ export class AuthPage {
     this.router.navigate([''])
   }
 
-  onSignIn() {
-    signInWithEmailAndPassword(this.auth, this.userEmail.value, this.userPassword.value).then((credential) => {
+  onSignInWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(this.auth, provider).then((credential) => {
       const uid = credential.user.uid;
-
+      if (uid) {
+        this.apiService.signIn(uid);
+      }
       this.backToHomePage();
     }).catch((error) => {
       this.errorString.set(error.message);
     })
-  } 
+  }
+
+  onSignIn() {
+    signInWithEmailAndPassword(this.auth, this.userEmail.value, this.userPassword.value).then((credential) => {
+      const uid = credential.user.uid;
+      if (uid) {
+        this.apiService.signIn(uid);
+      }
+      this.backToHomePage();
+    }).catch((error) => {
+      this.errorString.set(error.message);
+    })
+  }
 
   onSignUp() {
     createUserWithEmailAndPassword(this.auth, this.userEmail.value, this.userPassword.value)
-    .then((credential) => {
-      console.log(credential);
-    }).catch((error) => {
-      console.error(error);
-    });
+      .then((credential) => {
+        const uid = credential.user.uid;
+        if (uid) {
+          const user: User = {
+            uid,
+            name: this.userName.value, 
+            surname: this.userSurname.value, 
+            phoneNumber: this.userPhoneNumber.value, 
+            email: this.userEmail.value
+          };
+          this.apiService.signUp(uid, user);
+        }
+
+        this.backToHomePage();
+      }).catch((error) => {
+        this.errorString.set(error.message);
+      });
   }
 
   onAuth(event: SubmitEvent) {

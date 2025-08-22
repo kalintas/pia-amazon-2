@@ -11,7 +11,7 @@
     <span class="signin-brand">{{ getAuthString() }}</span>
 
     <div class="social-media-buttons">
-      <button class="btn btn-google"><img src="google_logo_icon_169090.ico" alt="sign in with google">{{getAuthString()}} with Google</button>
+      <button class="btn btn-google" (click)="onSignInWithGoogle()"><img src="google_logo_icon_169090.ico" alt="sign in with google">{{getAuthString()}} with Google</button>
       <button class="btn btn-facebook"><img src="facebook_logo_icon_147291.ico" alt="sign in with facebook">{{getAuthString()}} with Facebook</button>
       <button class="btn btn-apple"><img src="social_apple_mac_65.ico" alt="sign in with apple">{{getAuthString()}} with Apple</button>
       <p class="or-line">or {{getAuthString()}} with Email</p>
