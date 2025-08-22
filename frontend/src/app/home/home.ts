@@ -1,4 +1,4 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, HostListener, inject, ViewChild } from '@angular/core';
 import { ProductBox } from './product-box/product-box';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,15 +6,18 @@ import { Product, ProductDatabase } from '../product_database';
 import { Router } from '@angular/router';
 import { Pagination } from "../pagination/pagination";
 import { Cart } from '../cart/cart';
-import { ProfilePage } from '../profile-page/profile-page';
+import { AuthPage } from '../auth-page/auth-page';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
     selector: 'app-home',
-    imports: [ProductBox, CommonModule, FormsModule, Pagination, Cart, ProfilePage],
+    imports: [ProductBox, CommonModule, FormsModule, Pagination, Cart],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })
 export class Home {
+    auth: Auth = inject(Auth);
+
     categoryOptions: string[] = Array.from(new Set(ProductDatabase.map(p => p.category))).sort();;
 
     searchId: string = '';
@@ -73,13 +76,13 @@ export class Home {
 
     cartItemCount: number = 0;
     @ViewChild(Cart) cartComponent!: Cart;
-    @ViewChild(ProfilePage) profileComponent!: ProfilePage;
+    @ViewChild(AuthPage) profileComponent!: AuthPage;
 
     togleCart() {
         this.cartComponent.open.set(!this.cartComponent.open());
     }
-
-    toProfilePage() {
-        this.router.navigate(['/signin']);
+    
+    toAuthPage() {
+        this.router.navigate(['/auth']);
     }
 }

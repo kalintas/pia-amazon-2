@@ -8,9 +8,13 @@
 </button>
     <app-cart></app-cart>
 
-<button class="profile-btn" (click)="toProfilePage()">
-    Sign In
-</button>
+@if (this.auth.currentUser) {
+    <div>{{ this.auth.currentUser.uid }}</div>
+} @else {
+    <button class="profile-btn" (click)="toAuthPage()" #authButton>
+        Sign In
+    </button>
+}
 
 <div class="queryBar">
     <input class="idSearchInput input" [(ngModel)]="searchId" placeholder="Product ID" (keyup)="onSearch()" />

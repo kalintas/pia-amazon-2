@@ -15,6 +15,7 @@ export class ProductPage {
     constructor(private route: ActivatedRoute, public router: Router) { }
 
     ngOnInit() {
+        fetch('http://localhost:8080/hello').then(response => response.text()).then((text) => console.log(text));
         this.route.params.subscribe((params) => {
             const productId = params['id'];
             var result = ProductDatabase.find(product => product.id === productId);

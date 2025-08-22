@@ -1,0 +1,41 @@
+<div class="signin-page">
+
+  <button class="back-to-home" (click)="backToHomePage()">
+    Back to Home
+  </button>
+  
+  <div class="signin-box">
+    <img
+      src="account_login_log_in_icon_250759.ico"
+      class="signin-logo"
+      alt="Logo"
+    />
+
+    <span class="signin-brand">{{ pageSignIn() ? "Sign In" : "Sign Up" }}</span>
+
+    <form (submit)="onAuth($event)">
+      @if (!pageSignIn()) {
+        <input [formControl]="userName" type="text" class="signin-username" placeholder="Name" required/>
+        <input [formControl]="userSurname" type="text" class="signin-username" placeholder="Surname" required/>
+      }
+      <input [formControl]="userEmail" class="signin-username" type="email" placeholder="Email" required/>
+      @if (!pageSignIn()) {
+        <input [formControl]="userPhoneNumber" type="tel" class="signin-username" placeholder="Phone number" required/>
+      }
+      <input [formControl]="userPassword" class="signin-password" type="password" placeholder="Password" required/>
+      <button class="signin-button" type="submit">{{ pageSignIn() ? "Sign In" : "Sign Up" }}</button>  
+    </form>
+
+    @if (pageSignIn()) {
+      <div>
+        If you don't have an account, <span (click)="pageSignIn.set(!pageSignIn())">Sign Up</span>
+      </div>
+    } @else {
+      <div #signUp>
+          Already have an account?,  <span (click)="pageSignIn.set(!pageSignIn())">Log In</span>
+      </div>
+    }
+
+    
+  </div>
+</div>  
