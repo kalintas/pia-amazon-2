@@ -15,5 +15,4 @@ export class ProfilePage {
     this.router.navigate([''])
 
   }
-
 }
