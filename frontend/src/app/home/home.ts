@@ -9,6 +9,7 @@ import { AuthPage } from '../auth-page/auth-page';
 import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
 import { Auth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -33,7 +34,7 @@ export class Home {
     maximumProductPerPage: number;
     Math = Math;
     
-    constructor() {
+    constructor(private router: Router) {
         this.maximumProductPerPage = window.innerWidth <= 600 ? 20 : 60;
         this.totalPages = Math.ceil(ProductDatabase.length / this.maximumProductPerPage);
     }
@@ -81,9 +82,5 @@ export class Home {
 
     togleCart() {
         this.cartComponent.open.set(!this.cartComponent.open());
-    }
-    
-    toAuthPage() {
-        this.router.navigate(['/auth']);
     }
 }

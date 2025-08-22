@@ -1,21 +1,3 @@
-<div class="homepage-header">
-    <img src="favicon.ico" class="homepage-logo" alt="Logo" />
-    <span class="homepage-brand">Amazon 2</span>
-</div>
-
-<button class="cart-btn" (click)="togleCart()">
-    🛒 Cart ({{cartItemCount}})
-</button>
-    <app-cart></app-cart>
-
-@if (this.auth.currentUser) {
-    <div>{{ this.auth.currentUser.uid }}</div>
-} @else {
-    <button class="profile-btn" (click)="toAuthPage()" #authButton>
-        Sign In
-    </button>
-}
-
 <app-header></app-header>
 <div class="queryBar">
     <input class="idSearchInput input" [(ngModel)]="searchId" placeholder="Product ID" (keyup)="onSearch()" />

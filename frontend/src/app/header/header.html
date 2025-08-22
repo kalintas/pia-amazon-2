@@ -9,3 +9,11 @@
     Sign In
 </button>
     <app-cart></app-cart>
+
+@if (this.auth.currentUser) {
+    <div>{{ this.auth.currentUser.uid }}</div>
+} @else {
+    <button class="profile-btn" (click)="this.router.navigate(['/auth'])" #authButton>
+        Sign In
+    </button>
+}

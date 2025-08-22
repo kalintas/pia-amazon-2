@@ -1,20 +1,22 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Cart } from '../cart/cart';
-import { ProfilePage } from '../profile-page/profile-page';
+import { AuthPage } from '../auth-page/auth-page';
 import { Router } from '@angular/router';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-header',
-  imports: [Cart,ProfilePage],
+  imports: [Cart,AuthPage],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header {
+  auth: Auth = inject(Auth);
 
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
   @ViewChild(Cart) cartComponent!: Cart;
-  @ViewChild(ProfilePage) profileComponent!: ProfilePage;
+  @ViewChild(AuthPage) profileComponent!: AuthPage;
 
   cartItemCount: number = 0;
 
