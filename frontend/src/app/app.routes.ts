@@ -7,6 +7,7 @@ import { PrivacyPolicy } from './privacy-policy/privacy-policy';
 import { TermsOfService } from './terms-of-service/terms-of-service';
 import { ContactUs } from './contact-us/contact-us';
 import { ProfilePage } from './profile-page/profile-page';
+import { EditProfile } from './profile-page/edit-profile/edit-profile';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
   {
     path: 'profile',
     component: ProfilePage,
+  },
+  {
+    path: 'profile/edit',
+    component: EditProfile,
   },
   {
     path: 'home',

@@ -1,1 +1,27 @@
-<p>profile-page works!</p>
+<button class="back-to-home" (click)="backToHomePage()">
+    ← Back to Home
+</button>
+
+<div class="profile-container">
+    <img src="default_pp.png" class="profile-photo" alt="Default profile photo">
+    <div class="profile-details">
+        <h1>User Profile</h1>
+        <button class="edit-btn" (click)="goToEdit()">Edit Info</button>
+        <span>Can Özer</span>
+        <span>can@gmail.com</span>
+        <span>+90 532 673 85 12</span>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+</div>
+
+<div class="previous-orders-container">
+    <div class="previous-orders-details">
+        <h2>Previous Orders</h2>
+        <p>Product 1: Toy</p>
+        <p>Product 1: Toy</p>
+        <p>Product 1: Toy</p>
+        <p>Product 1: Toy</p>
+        <p>Product 1: Toy</p>
+        <p><strong>You have no previous orders.</strong></p>
+    </div>
+</div>
