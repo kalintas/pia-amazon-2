@@ -7,6 +7,8 @@ import { PrivacyPolicy } from './privacy-policy/privacy-policy';
 import { TermsOfService } from './terms-of-service/terms-of-service';
 import { ContactUs } from './contact-us/contact-us';
 import { ProfilePage } from './profile-page/profile-page';
+import { CanActivateProfile } from './profile-page/can-activate-profile';
+import { EditProfile } from './profile-page/edit-profile/edit-profile';
 import { Checkout } from './checkout/checkout';
 
 export const routes: Routes = [
@@ -21,11 +23,15 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    component: AuthPage,
+    component: AuthPage
   },
   {
     path: 'profile',
     component: ProfilePage,
+  },
+  {
+    path: 'profile/edit',
+    component: EditProfile,
   },
   {
     path: 'home',

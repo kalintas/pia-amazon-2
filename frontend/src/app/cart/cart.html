@@ -6,23 +6,42 @@
             <h3>Shopping Cart</h3>
             <button class="cart-close-btn" (click)="open.set(false)">×</button>
         </div>
-        @if (items.length === 0) {
-            <div class="cart-empty">
-                <p>Your cart is empty</p>
-                <button class="cart-continue-shopping" (click)="open.set(false)">Continue Shopping</button>
-            </div>
+        @if (cartService.items().length === 0) {
+        <div class="cart-empty">
+            <p>Your cart is empty</p>
+            <button class="cart-continue-shopping" (click)="open.set(false)">Continue Shopping</button>
+        </div>
         } @else {
-            <div class="cart-items">
+        @for (item of cartService.items(); track item.name) {
+        <div class="cart-items">
+            <div class="cart-item">
+                <img (src)="item.imageUrl" (alt)="item.name" class="cart-item-image">
+                <div class="cart-item-details">
+                    <h4 class="cart-item-name">{{item.name}}</h4>
+                    <p class="cart-item-category">{{item.category}}</p>
+                    <p class="cart-item-price">${{item.price}}</p>
+                </div>
+                <div class="cart-item-quantity">
+                    <button class="quantity-btn" (click)="item.quantity -= 1;">-</button>
+                    <span class="quantity-display">{{item.quantity}}</span>
+                    <button class="quantity-btn" (click)="item.quantity += 1;">+</button>
+                </div>
+                <div class="cart-item-total">
+                    ${{(item.price * item.quantity).toFixed(2)}}
+                </div>
+                <button class="cart-item-remove" (click)="this.cartService.removeItem(item)">×</button>
             </div>
+        </div>
+        }
         }
         <div class="cart-footer">
             <div class="cart-total">
                 <span>Total:</span>
-                <span class="cart-total-amount">${{10}}</span>
+                <span class="cart-total-amount">${{this.cartService.total_price()}}</span>
             </div>
             <div class="cart-actions">
-                <button class="cart-clear-btn" (click)="clearCart()">Clear Cart</button>
-                <button class="cart-checkout-btn" (click)="goToCheckoutPage()">Checkout</button>
+                <button class="cart-clear-btn" (click)="this.cartService.clearCart()">Clear Cart</button>
+                <button class="cart-checkout-btn" (click)="this.cartService.checkout()">Checkout</button>
             </div>
         </div>
     </div>

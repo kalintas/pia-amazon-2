@@ -7,7 +7,7 @@
     <span class="homepage-brand">Amazon 2</span>
 </div>
 
-@if (this.auth.currentUser) {
+@if (this.apiService.user()) {
     <div>
         <img src="default_pp.png" class="profile-photo" alt="Default profile photo" (click)="this.router.navigate(['/profile'])">
     </div>

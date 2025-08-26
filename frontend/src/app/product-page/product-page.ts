@@ -1,5 +1,5 @@
 import { Component, Input, input } from '@angular/core';
-import { ProductDatabase, Product } from '../product_database';
+import { Product } from '../interfaces/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Suggestions } from "./suggestions/suggestions";
 
@@ -15,15 +15,15 @@ export class ProductPage {
     constructor(private route: ActivatedRoute, public router: Router) { }
 
     ngOnInit() {
-        fetch('http://localhost:8080/hello').then(response => response.text()).then((text) => console.log(text));
         this.route.params.subscribe((params) => {
             const productId = params['id'];
+            /*
             var result = ProductDatabase.find(product => product.id === productId);
             if (result) {
                 this.product = result;
             } else {
                 this.router.navigate(['/404']);
-            }
+            }*/
         });
     }
 }

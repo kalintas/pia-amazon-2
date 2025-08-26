@@ -1,6 +1,7 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Product } from '../../product_database';
+import { Product } from '../../interfaces/product';
+import { CartService } from '../../cart/cart-service';
 @Component({
   selector: 'app-product-box',
   imports: [],
@@ -13,6 +14,7 @@ import { Product } from '../../product_database';
 
 export class ProductBox {
   @Input() product!: Product;
+  cartService: CartService = inject(CartService);
 
   constructor(private router: Router) {}
 
@@ -21,6 +23,7 @@ export class ProductBox {
   }
 
   addToCart(event: MouseEvent) {
-    event.stopPropagation(); // Prevent the click from navigating to the product page
+    this.cartService.addToCart(this.product);
+    event.stopPropagation();
   }
 }

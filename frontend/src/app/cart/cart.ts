@@ -1,4 +1,6 @@
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
+import { CartService } from './cart-service';
 import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './cart.css',
 })
 export class Cart {
-  
+  cartService: CartService = inject(CartService);
   open = signal(false);
   items: any[] = []; 
 

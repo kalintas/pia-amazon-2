@@ -3,6 +3,7 @@ import { Cart } from '../cart/cart';
 import { AuthPage } from '../auth-page/auth-page';
 import { Router } from '@angular/router';
 import { Auth } from '@angular/fire/auth';
+import { ApiService } from '../services/api-service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ import { Auth } from '@angular/fire/auth';
   styleUrl: './header.css',
 })
 export class Header {
-  auth: Auth = inject(Auth);
+  apiService: ApiService = inject(ApiService);
 
   constructor(public router: Router) {}
 

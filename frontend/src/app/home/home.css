@@ -58,24 +58,6 @@
     box-shadow: 0 0 0 4px rgba(255,255,255,0.35);
 }
 
-.search-btn {
-    font-size: 1.05em;
-    padding: 12px 24px;
-    background: #1f2937;
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s;
-}
-
-.search-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.22);
-    background: #111827;
-}
 
 .homepage-results {
     width: 100%;
