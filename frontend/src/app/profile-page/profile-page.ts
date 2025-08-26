@@ -1,15 +1,28 @@
-import { Component, ViewChild } from '@angular/core';
+import { NgStyle } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [],
+  imports: [NgStyle],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit {
 
   constructor(private router: Router) {}
+
+  ngOnInit() {}
+
+  displayPopUp = "none";
+
+  openPopUp() {
+    this.displayPopUp = "block";
+  }
+
+  closePopUp() {
+    this.displayPopUp = "none";
+  }
 
   backToHomePage() {
     this.router.navigate([''])
@@ -17,9 +30,5 @@ export class ProfilePage {
 
   logout() {
     this.router.navigate(['home'])
-  }
-
-  goToEdit() {
-    this.router.navigate(['profile', 'edit']);
   }
 }

@@ -6,7 +6,7 @@
     <img src="default_pp.png" class="profile-photo" alt="Default profile photo">
     <div class="profile-details">
         <h1>User Profile</h1>
-        <button class="edit-btn" (click)="goToEdit()">Edit Info</button>
+        <button class="edit-btn" (click)="openPopUp()">Edit Info</button>
         <span>Can Özer</span>
         <span>can@gmail.com</span>
         <span>+90 532 673 85 12</span>
@@ -23,5 +23,18 @@
         <p>Product 1: Toy</p>
         <p>Product 1: Toy</p>
         <p><strong>You have no previous orders.</strong></p>
+    </div>
+</div>
+
+<div class="edit-container" [ngStyle]="{'display': displayPopUp}">
+    <button class="close-btn" (click)="closePopUp()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="edit-infos">
+        <h2>Edit Profile</h2>
+        <input  class="edit-name" type="new-name" placeholder="New Name">
+        <input class="edit-email" type="new-email" placeholder="New Email">
+        <input class="edit-phone" type="new-phone" placeholder="New Phone Number">
+        <button class="submit-btn" (click)="closePopUp()">Submit</button>
     </div>
 </div>

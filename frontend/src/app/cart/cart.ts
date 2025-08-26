@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -14,14 +15,14 @@ export class Cart {
 
   @Output() onCartItemCount: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor() {
+  constructor(private router: Router) {
     this.onCartItemCount.emit(this.items.length);
   }
 
   clearCart() {
     this.items = [];
   }
-  checkout() {
-    
+  goToCheckoutPage() {
+    this.router.navigate(['checkout']);
   }
 }
