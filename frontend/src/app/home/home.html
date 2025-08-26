@@ -5,20 +5,23 @@
     <select class="searchCategory select" [(ngModel)]="selectedCategory" name="Category" (change)="onSearch()"
         style="width: 120px; font-size: 0.9em">
         <option value="">All</option>
-        <option *ngFor="let category of categoryOptions" [value]="category">
-            {{ category }}
-        </option>
+        @for (category of categoryOptions(); track category) {
+            <option [value]="category">
+                {{ category }}
+            </option>
+        }
     </select>
-    <input id="searchButton" class="search-btn" type="button" (click)="onSearch()" value="Search" />
 </div>
 
 <div id="resultsCount" class="results-count">
-    Showing {{searchResults.length === 0 ? 0 : ((currentPage - 1) * maximumProductPerPage) + 1}}-{{Math.min(currentPage * maximumProductPerPage, this.searchResults.length)}} of {{this.searchResults.length}} results
+    Showing {{searchResult().length === 0 ? 0 : ((currentPage - 1) * maximumProductPerPage) + 1}}-{{Math.min(currentPage * maximumProductPerPage, this.searchResultCount())}} of {{this.searchResultCount()}} results
 </div>
 <div id="searchResults" class="homepage-results">
-    <app-product-box *ngFor="let product of productList" [product]="product">
-    </app-product-box>
+    @for (product of searchResult(); track product.id) {
+        <app-product-box [product]="product">
+        </app-product-box>
+    }
 </div>
 
-<app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)"></app-pagination>
+<app-pagination [currentPage]="currentPage" [totalPages]="totalPages()" (pageChange)="onPageChange($event)"></app-pagination>
 <app-footer></app-footer>

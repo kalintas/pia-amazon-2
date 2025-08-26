@@ -1,8 +1,8 @@
-import { Component, HostListener, inject, ViewChild } from '@angular/core';
+import { Component, computed, HostListener, inject, signal, ViewChild, WritableSignal } from '@angular/core';
 import { ProductBox } from './product-box/product-box';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Product, ProductDatabase } from '../product_database';
+import { Product } from '../interfaces/product';
 import { Pagination } from "../pagination/pagination";
 import { Cart } from '../cart/cart';
 import { AuthPage } from '../auth-page/auth-page';
@@ -10,6 +10,8 @@ import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
 import { Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api-service';
+import { SearchQuery } from '../interfaces/searchQuery';
 
 @Component({
     selector: 'app-home',
@@ -19,50 +21,50 @@ import { Router } from '@angular/router';
 })
 export class Home {
     auth: Auth = inject(Auth);
+    apiService: ApiService = inject(ApiService);
 
-    categoryOptions: string[] = Array.from(new Set(ProductDatabase.map(p => p.category))).sort();;
+    categoryOptions: WritableSignal<string[]> = signal([]);
 
     searchId: string = '';
     searchName: string = '';
     selectedCategory: string = '';
 
-    searchResults: Product[] = [];
-    productList: Product[] = [];
+    searchResult: WritableSignal<Product[]> = signal([]);
+    searchResultCount = signal(0);
 
     currentPage: number = 1;
-    totalPages: number;
+    totalPages = computed(() => {
+        return Math.ceil(this.searchResultCount() / this.maximumProductPerPage)
+    });
     maximumProductPerPage: number;
     Math = Math;
-    
+
     constructor(private router: Router) {
         this.maximumProductPerPage = window.innerWidth <= 600 ? 20 : 60;
-        this.totalPages = Math.ceil(ProductDatabase.length / this.maximumProductPerPage);
     }
 
     ngOnInit() {
+        this.apiService.getProductCategories().subscribe((categories) => {
+            this.categoryOptions.set(categories);
+        });
         this.onSearch();
     }
 
     onSearch() {
-        this.searchResults = [];
-        ProductDatabase.forEach((product) => {
-            if ((this.searchId === "" || product.id.includes(this.searchId)) && (this.searchName === "" || product.name.toLowerCase().includes(this.searchName.toLowerCase()))
-                && (this.selectedCategory === "" || this.selectedCategory === product.category)) {
-                this.searchResults.push({
-                    id: product.id,
-                    name: product.name,
-                    category: product.category,
-                    description: product.description,
-                    price: product.price,
-                    imageurl: product.imageurl,
-                });
-            }
+
+        const query: SearchQuery = {
+            "id": this.searchId,
+            "name": this.searchName,
+            "category": this.selectedCategory,
+            "page": this.currentPage,
+            "productCount": this.maximumProductPerPage
+        };
+
+        this.apiService.searchQuery(query).subscribe((result) => {
+            this.searchResult.set(result.products);
+            this.searchResultCount.set(result.searchResultCount);
+            console.log(result);
         });
-        
-        this.productList = [];
-        for (let i = (this.currentPage - 1) * this.maximumProductPerPage; i < (this.currentPage * this.maximumProductPerPage) && i < this.searchResults.length; i++) {
-            this.productList.push(this.searchResults[i]); 
-        }
     }
 
     onPageChange(page: number) {
