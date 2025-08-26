@@ -86,7 +86,7 @@ body, html {
     gap: 8px;
 }
 
-.logout-btn {
+.signout-btn {
     background: linear-gradient(180deg, #ef4444, #dc2626);
     color: #fff;
     border: none;
@@ -101,7 +101,7 @@ body, html {
     align-self: center;
 }
 
-.logout-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(220, 38, 38, 0.25); }
+.signout-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(220, 38, 38, 0.25); }
 
 .previous-orders-container {
     grid-column: 1;

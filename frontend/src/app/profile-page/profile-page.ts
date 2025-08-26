@@ -1,6 +1,8 @@
 import { NgStyle } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api-service';
+import { User } from '../interfaces/user';
 
 @Component({
   selector: 'app-profile-page',
@@ -10,9 +12,20 @@ import { Router } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  constructor(private router: Router) {}
+  apiService: ApiService = inject(ApiService);
+  user!: User;
 
-  ngOnInit() {}
+  constructor(private router: Router) {
+  }
+
+  ngOnInit() {
+    let user = this.apiService.user();
+    if (user) {
+      this.user = user;
+    } else {
+      this.backToHomePage();
+    }
+  }
 
   displayPopUp = "none";
 
@@ -25,10 +38,14 @@ export class ProfilePage implements OnInit {
   }
 
   backToHomePage() {
-    this.router.navigate([''])
+    this.router.navigate(['/'])
   }
 
-  logout() {
-    this.router.navigate(['home'])
+  signOut() {
+    this.router.navigate(['/'])
+  }
+
+  goToEdit() {
+    this.router.navigate(['profile', 'edit']);
   }
 }

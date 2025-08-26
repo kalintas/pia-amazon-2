@@ -77,7 +77,7 @@ export class AuthPage {
             phoneNumber: this.userPhoneNumber.value, 
             email: this.userEmail.value
           };
-          this.apiService.signUp(uid, user);
+          this.apiService.signUp(user);
         }
 
         this.backToHomePage();

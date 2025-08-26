@@ -7,10 +7,10 @@
     <div class="profile-details">
         <h1>User Profile</h1>
         <button class="edit-btn" (click)="openPopUp()">Edit Info</button>
-        <span>Can Özer</span>
-        <span>can@gmail.com</span>
-        <span>+90 532 673 85 12</span>
-        <button class="logout-btn" (click)="logout()">Logout</button>
+        <span>{{user.name}}</span>
+        <span>{{user.email}}</span>
+        <span>{{user.phoneNumber}}</span>
+        <button class="signout-btn" (click)="signOut()">Sign out</button>
     </div>
 </div>
 

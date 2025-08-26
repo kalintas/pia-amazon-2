@@ -1,24 +1,37 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, effect, inject } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { CanActivate, Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CanActivateProfile implements CanActivate {
 
-  apiService = inject(ApiService)
+  apiService = inject(ApiService);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
-  canActivate(): boolean {
-    if (this.apiService.user()) {
-      return true;
-    } else {
-      this.router.navigate(['/'])
-      return false;
+  canActivate(): Observable<boolean> {
+    if (this.apiService.user() !== null) {
+      return of(true);
     }
+    const userObservable = this.apiService.userObservable();
+    if (!userObservable) {
+      this.router.navigate(['/']);
+      return of(false);
+    }
+    return userObservable.pipe(
+      map(() => {
+        return true;
+      }),
+      catchError(() => {
+        this.router.navigate(['/']);
+        return of(false);
+      })
+    );
   }
 
 }

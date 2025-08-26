@@ -72,7 +72,7 @@ public class PiaInternshipApplication {
         }
         return ResponseEntity.notFound().build();
     }
-    @PostMapping("/api/signUp/{uid}")
+    @PostMapping("/api/signUp")
     public ResponseEntity<Void> signUp(@RequestBody User user) {
         var userOptional = userRepository.findByUid(user.getUid());
         if (userOptional.isPresent()) {
@@ -82,6 +82,30 @@ public class PiaInternshipApplication {
 
         userRepository.insert(user);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/api/signOut")
+    public ResponseEntity<Void> signOut(@CookieValue(value = "token", required = false) String token) {
+        if (token == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        var userOptional = userRepository.findByUid(token);
+        if (userOptional.isEmpty()) {
+            // User doesn't exist.
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Delete cookies.
+        ResponseCookie tokenCookie =
+                ResponseCookie.from("token", "").path("/").maxAge(0).build();
+        ResponseCookie sessionCookie = ResponseCookie.from("session", "").path("/").maxAge(0).build();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.SET_COOKIE, tokenCookie.toString());
+        headers.add(HttpHeaders.SET_COOKIE, sessionCookie.toString());
+
+        return ResponseEntity.ok().headers(headers).build();
     }
 
     @GetMapping("/api/products")
