@@ -23,7 +23,9 @@ export class Cart {
   clearCart() {
     this.items = [];
   }
-  goToCheckoutPage() {
+  
+  onCheckout() {
+    this.cartService.checkout();
     this.router.navigate(['checkout']);
   }
 }

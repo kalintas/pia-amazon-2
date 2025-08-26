@@ -1,1 +1,64 @@
-<p>checkout works!</p>
+<button class="back-to-home" (click)="backToHomePage()">← Back to Home</button>
+
+<div class="checkout-grid">
+  <div class="checkout-card">
+    <h1 class="title">Payment</h1>
+    <form class="payment-inputs">
+      <input
+        [formControl]="checkoutName"
+        type="text"
+        class="checkout-name"
+        placeholder="Name on Card"
+        required
+      />
+      <input
+        [formControl]="checkoutCardNumber"
+        type="text"
+        class="checkout-card-number"
+        placeholder="Card Number"
+        required
+      />
+      <input
+        [formControl]="checkoutExpirationDate"
+        type="text"
+        class="checkout-expiry-date"
+        placeholder="Expiration Date"
+        required
+      />
+      <input
+        [formControl]="checkoutCvv"
+        type="text"
+        class="checkout-cvv"
+        placeholder="CVV"
+        required
+      />
+
+      <button class="submit-btn" type="button">Complete Payment</button>
+    </form>
+
+    <div class="accepted-cards">
+      <h3>Accepted Cards:</h3>
+      <img
+        class="visa-icon"
+        src="visa_payment_method_card_icon_142746.ico"
+        alt="Visa Icon"
+      />
+      <img
+        class="mastercard-icon"
+        src="mastercard_payment_method_icon_142750.ico"
+        alt="Mastercard Icon"
+      />
+    </div>
+  </div>
+
+  <div class="orders-card">
+    <h2 class="orders-title">Your Orders:</h2>
+    <div class="order-item">
+      <div class="order-details">
+        <h3 class="order-name">Toy 1</h3>
+        <p class="order-quantity">Quantity: 2</p>
+        <p class="order-price">$20.00</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,8 +2,7 @@
 <div class="queryBar">
     <input class="idSearchInput input" [(ngModel)]="searchId" placeholder="Product ID" (keyup)="onSearch()" />
     <input class="searchInput input" [(ngModel)]="searchName" placeholder="Product Name" (keyup)="onSearch()" />
-    <select class="searchCategory select" [(ngModel)]="selectedCategory" name="Category" (change)="onSearch()"
-        style="width: 120px; font-size: 0.9em">
+    <select class="searchCategory select" [(ngModel)]="selectedCategory" name="Category" (change)="onSearch()">
         <option value="">All</option>
         @for (category of categoryOptions(); track category) {
             <option [value]="category">

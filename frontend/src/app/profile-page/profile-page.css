@@ -187,26 +187,6 @@ body, html {
     transition: background-color 0.2s, transform 0.1s ease;
 }
 
-.back-to-profile {
-    background: #6c47ff;
-    color: #fff;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background 0.2s;
-    position: fixed;
-    top: 24px;
-    left: 24px;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(60,60,60,0.10);
-}
-
-.back-to-profile:hover {
-    background: #4b2fd6;
-}
-
 .close-btn {
     position: absolute;
     top: 12px;

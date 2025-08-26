@@ -28,7 +28,6 @@ export class AuthPage {
   userName: FormControl = new FormControl('');
   userSurname: FormControl = new FormControl('');
   userPhoneNumber: FormControl = new FormControl('');
-
   userEmail: FormControl = new FormControl('');
   userPassword: FormControl = new FormControl('');
 

@@ -5,14 +5,15 @@
 
 .queryBar {
     display: grid;
-    grid-template-columns: 1fr 1fr 180px 140px;
-    gap: 14px;
+    grid-template-columns: repeat(3, auto);
+    gap: 18px;
     justify-content: center;
+    justify-items: center;
     align-items: center;
     background: linear-gradient(135deg, #8aa6c8 0%, #6e90b8 100%);
     border-radius: 14px;
     box-shadow: 0 10px 30px rgba(22, 52, 90, 0.25);
-    padding: 22px 26px;
+    padding: 24px 30px;
     margin: 32px auto 28px auto;
     width: 100%;
     max-width: 1100px;
@@ -24,11 +25,17 @@
         padding: 20px 14px;
         gap: 12px;
     }
+
+    .idSearchInput,
+    .searchInput,
+    .searchCategory {
+        width: 100%;
+    }
 }
 
 .input {
-    font-size: 1.05em;
-    padding: 12px 14px;
+    font-size: 1.08em;
+    padding: 14px 16px;
     border: 1px solid rgba(255,255,255,0.5);
     border-radius: 10px;
     outline: none;
@@ -42,9 +49,14 @@
     box-shadow: 0 0 0 4px rgba(255,255,255,0.35);
 }
 
+.idSearchInput,
+.searchInput {
+    width: 340px;
+}
+
 .select {
-    font-size: 1.05em;
-    padding: 12px 14px;
+    font-size: 1.08em;
+    padding: 14px 16px;
     border: 1px solid rgba(255,255,255,0.5);
     border-radius: 10px;
     background: rgba(255,255,255,0.85);
@@ -56,6 +68,10 @@
     border: 1.5px solid rgba(255,255,255,0.9);
     background: #fff;
     box-shadow: 0 0 0 4px rgba(255,255,255,0.35);
+}
+
+.searchCategory {
+    width: 180px;
 }
 
 
