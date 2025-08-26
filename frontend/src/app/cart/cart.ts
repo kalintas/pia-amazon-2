@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
+import { CartService } from './cart-service';
 
 @Component({
   selector: 'app-cart',
@@ -8,20 +9,6 @@ import { Component, EventEmitter, Output, signal } from '@angular/core';
   styleUrl: './cart.css',
 })
 export class Cart {
-  
+  cartService: CartService = inject(CartService);
   open = signal(false);
-  items: any[] = []; 
-
-  @Output() onCartItemCount: EventEmitter<number> = new EventEmitter<number>();
-
-  constructor() {
-    this.onCartItemCount.emit(this.items.length);
-  }
-
-  clearCart() {
-    this.items = [];
-  }
-  checkout() {
-    
-  }
 }

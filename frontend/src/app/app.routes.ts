@@ -7,6 +7,7 @@ import { PrivacyPolicy } from './privacy-policy/privacy-policy';
 import { TermsOfService } from './terms-of-service/terms-of-service';
 import { ContactUs } from './contact-us/contact-us';
 import { ProfilePage } from './profile-page/profile-page';
+import { CanActivateProfile } from './profile-page/can-activate-profile';
 
 export const routes: Routes = [
   {
@@ -20,27 +21,12 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    component: AuthPage,
+    component: AuthPage
   },
   {
     path: 'profile',
     component: ProfilePage,
-  },
-  {
-    path: 'home',
-    component: Home
-  },
-  {
-    path: 'privacy-policy',
-    component: PrivacyPolicy
-  },
-  {
-    path: 'terms-of-service',
-    component: TermsOfService
-  },
-  {
-    path: 'contact-us',
-    component: ContactUs
+    canActivate: [CanActivateProfile]
   },
   {
     path: 'home',

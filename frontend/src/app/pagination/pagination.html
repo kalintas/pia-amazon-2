@@ -26,14 +26,14 @@ class="pagination-btn"
     <span class="pagination-ellipsis">...</span>
 }
 
-
-<button
-*ngFor="let page of pageNumbers()"
-class="pagination-btn"
-[class.active]="page === currentPage"
-(click)="onPageChange(page)">
-{{ page }}
-</button>
+@for (page of pageNumbers(); track page) {
+    <button
+    class="pagination-btn"
+    [class.active]="page === currentPage"
+    (click)="onPageChange(page)">
+    {{ page }}
+    </button>
+}
 
 @if (pageRange().endPage < totalPages - 1) {
     <span class="pagination-ellipsis">...</span>

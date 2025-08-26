@@ -3,6 +3,9 @@ import { RouterOutlet } from '@angular/router';
 import { Cart } from './cart/cart';
 
 import { Firestore } from '@angular/fire/firestore';
+import { CookieService } from 'ngx-cookie-service';
+import { ApiService } from './services/api-service';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +20,18 @@ export class App {
   cartItemCount: number = 0;
   @ViewChild(Cart) cartComponent!: Cart;
   firestore: Firestore = inject(Firestore);
+  cookieService = inject(CookieService);
+  apiService = inject(ApiService);
+  auth = inject(Auth);
+
+  ngOnInit() {
+    const sessionCookie = this.cookieService.get("session");
+    if (sessionCookie) {
+      // Try to log in.
+      // With the token cookie.
+      this.apiService.signIn();
+    }
+  }
 
   togleCart() {
     this.cartComponent.open.set(!this.cartComponent.open());
