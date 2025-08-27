@@ -19,7 +19,7 @@ export class ReelsPage {
   displayPopUp = "none";
 
   openPopUp() {
-    this.displayPopUp = "block";
+    this.displayPopUp = "flex";
   }
 
   closePopUp() {

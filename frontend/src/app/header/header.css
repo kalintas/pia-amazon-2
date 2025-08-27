@@ -116,15 +116,19 @@
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 0 0 6px rgba(29, 78, 216, 0.5);
 }
 
+.cross-btn {
+   color: red;
+}
+
 .new-label {
     position: absolute;
     top: 5px;
-    right: 80px;
+    right: 130px;
     background: #21e50b;
     border-radius: 12px;
-    padding: 2px 8px;
+    padding: 1px 4px;
     box-shadow: 0 4px 12px rgba(42, 133, 16, 0.3);
-    font-weight: 700;
+    font-weight: 645;
     color: #0a2e04;
     animation: newLabelPulse 0.6s ease-in-out infinite alternate;
     will-change: transform;
