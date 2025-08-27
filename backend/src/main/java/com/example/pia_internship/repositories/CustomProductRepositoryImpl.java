@@ -1,6 +1,6 @@
-package com.example.pia_internship;
+package com.example.pia_internship.repositories;
 
-import com.mongodb.client.DistinctIterable;
+import com.example.pia_internship.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;

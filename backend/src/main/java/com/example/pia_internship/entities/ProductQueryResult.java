@@ -1,15 +1,15 @@
-package com.example.pia_internship;
+package com.example.pia_internship.entities;
 
 import java.util.List;
 
-public class SearchQueryResult {
+public class ProductQueryResult {
     private List<Product> products;
     private int currentPage;
-    private int searchResultCount;
+    private int queryResultCount;
 
-    public SearchQueryResult(List<Product> products, int searchResultCount, int currentPage) {
+    public ProductQueryResult(List<Product> products, int queryResultCount, int currentPage) {
         this.products = products;
-        this.searchResultCount = searchResultCount;
+        this.queryResultCount = queryResultCount;
         this.currentPage = currentPage;
     }
 
@@ -29,11 +29,11 @@ public class SearchQueryResult {
         this.currentPage = currentPage;
     }
 
-    public int getSearchResultCount() {
-        return searchResultCount;
+    public int getQueryResultCount() {
+        return queryResultCount;
     }
 
-    public void setSearchResultCount(int searchResultCount) {
-        this.searchResultCount = searchResultCount;
+    public void setQueryResultCount(int queryResultCount) {
+        this.queryResultCount = queryResultCount;
     }
 }

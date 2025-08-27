@@ -1,5 +1,5 @@
 <div class="suggestions-title">Similar Products</div>
-@for (product of similar(); track product.id) {
+@for (product of suggestions(); track product.id) {
     <div id="suggestions-list" class="suggestions-list">
         <div class="suggestion-item">
             <img [src]="product.imageUrl" class="suggestion-img" />

@@ -1,5 +1,6 @@
-package com.example.pia_internship;
+package com.example.pia_internship.repositories;
 
+import com.example.pia_internship.entities.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

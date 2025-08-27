@@ -1,10 +1,10 @@
-package com.example.pia_internship;
+package com.example.pia_internship.entities;
 
 public class SearchQuery {
     private String id;
     private String name;
     private String category;
-    private int productCount;
+    private int pageSize;
     private int page;
 
     public String getId() {
@@ -39,11 +39,11 @@ public class SearchQuery {
         this.page = page;
     }
 
-    public int getProductCount() {
-        return productCount;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setProductCount(int productCount) {
-        this.productCount = productCount;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

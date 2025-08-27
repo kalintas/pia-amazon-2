@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { Auth, authState, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from '@angular/fire/auth';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { catchError, map, of, Subscription } from 'rxjs';
 import { ApiService } from '../services/api-service';
 import { User } from '../interfaces/user';
 
@@ -33,20 +33,36 @@ export class AuthPage {
 
 
   constructor(private router: Router) {
+    effect(() => {
+      this.pageSignIn();
+      this.resetForm();
+    })
   }
 
   backToHomePage() {
     this.router.navigate([''])
   }
 
+  sendSignIn(uid: string) {
+    if (!uid) {
+      return;
+    }
+    this.apiService.signIn(uid).pipe(
+      catchError(() => {
+        this.auth.signOut(); // Sign out from firebase auth.
+        this.errorString.set("Could not sign in.");
+        return of();
+      })
+    ) .subscribe((user) => {
+      this.backToHomePage();
+    });
+  }
+  
   onSignInWithGoogle() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(this.auth, provider).then((credential) => {
       const uid = credential.user.uid;
-      if (uid) {
-        this.apiService.signIn(uid);
-      }
-      this.backToHomePage();
+      this.sendSignIn(uid);
     }).catch((error) => {
       this.errorString.set(error.message);
     })
@@ -55,10 +71,7 @@ export class AuthPage {
   onSignIn() {
     signInWithEmailAndPassword(this.auth, this.userEmail.value, this.userPassword.value).then((credential) => {
       const uid = credential.user.uid;
-      if (uid) {
-        this.apiService.signIn(uid);
-      }
-      this.backToHomePage();
+      this.sendSignIn(uid);
     }).catch((error) => {
       this.errorString.set(error.message);
     })
@@ -71,15 +84,23 @@ export class AuthPage {
         if (uid) {
           const user: User = {
             uid,
-            name: this.userName.value, 
-            surname: this.userSurname.value, 
-            phoneNumber: this.userPhoneNumber.value, 
+            name: this.userName.value,
+            surname: this.userSurname.value,
+            phoneNumber: this.userPhoneNumber.value,
             email: this.userEmail.value
           };
-          this.apiService.signUp(user);
+          
+          this.apiService.signUp(user).pipe(
+            catchError(() => {
+              this.auth.signOut(); // Sign out from firebase auth.
+              this.errorString.set("Could not sign up due to a server error.");
+              return of();
+            }))
+            .subscribe(() => {
+              this.errorString.set("");
+              this.pageSignIn.set(true);
+            });
         }
-
-        this.backToHomePage();
       }).catch((error) => {
         this.errorString.set(error.message);
       });
@@ -96,5 +117,13 @@ export class AuthPage {
 
   getAuthString() {
     return this.pageSignIn() ? "Sign In" : "Sign Up";
+  }
+
+  resetForm() {
+    this.userName.setValue("");
+    this.userSurname.setValue("");
+    this.userPhoneNumber.setValue("");
+    this.userEmail.setValue("");
+    this.userPassword.setValue("");
   }
 }

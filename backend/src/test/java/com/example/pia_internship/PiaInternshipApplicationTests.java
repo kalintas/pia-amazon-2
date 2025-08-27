@@ -1,5 +1,7 @@
 package com.example.pia_internship;
 
+import com.example.pia_internship.entities.User;
+import com.example.pia_internship.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

@@ -30,11 +30,12 @@
     <button class="close-btn" (click)="closePopUp()">
         <span aria-hidden="true">&times;</span>
     </button>
-    <div class="edit-infos">
+    <form (submit)="submitChanges($event)" class="edit-infos">
         <h2>Edit Profile</h2>
-        <input  class="edit-name" type="new-name" placeholder="New Name">
-        <input class="edit-email" type="new-email" placeholder="New Email">
-        <input class="edit-phone" type="new-phone" placeholder="New Phone Number">
-        <button class="submit-btn" (click)="closePopUp()">Submit</button>
-    </div>
+        <input [formControl]="userName" class="edit-name" placeholder="Name">
+        <input [formControl]="userSurname" class="edit-name" placeholder="Surname">
+        <input [formControl]="userEmail" class="edit-email" type="email" placeholder="Email">
+        <input [formControl]="userPhoneNumber" class="edit-phone" type="tel" placeholder="Phone Number">
+        <button class="submit-btn" type="submit">Submit</button>
+    </form>
 </div>

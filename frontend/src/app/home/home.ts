@@ -57,12 +57,12 @@ export class Home {
             "name": this.searchName,
             "category": this.selectedCategory,
             "page": this.currentPage,
-            "productCount": this.maximumProductPerPage
+            "pageSize": this.maximumProductPerPage
         };
 
         this.apiService.searchQuery(query).subscribe((result) => {
             this.searchResult.set(result.products);
-            this.searchResultCount.set(result.searchResultCount);
+            this.searchResultCount.set(result.queryResultCount);
             console.log(result);
         });
     }

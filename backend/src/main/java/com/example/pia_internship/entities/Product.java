@@ -1,7 +1,9 @@
-package com.example.pia_internship;
+package com.example.pia_internship.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "products")
 public class Product {
     @Id
     private String id;
