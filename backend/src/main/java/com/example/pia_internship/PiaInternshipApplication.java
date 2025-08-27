@@ -216,7 +216,12 @@ public class PiaInternshipApplication {
         var productOptional = productRepository.findById(suggestionQuery.getProductId());
         if (productOptional.isPresent()) {
             var product = productOptional.get();
-            var list = productRepository.findByCategory(product.getCategory());
+
+            Query query = new Query();
+            query.addCriteria(Criteria.where("id").ne(suggestionQuery.getProductId()));
+            query.addCriteria(Criteria.where("category").is(product.getCategory()));
+
+            var queryResult = productRepository.find(query);
 
             var size = suggestionQuery.getPageSize();
             if (size > 100) {
@@ -224,13 +229,13 @@ public class PiaInternshipApplication {
             }
 
             var index = (suggestionQuery.getPage() - 1) * size;
-            if (index > list.size()) {
+            if (index > queryResult.size()) {
                 return ResponseEntity.badRequest().build();
             }
 
-            var suggestions = list.subList(index, Math.min(index + size, list.size()));
+            var suggestions = queryResult.subList(index, Math.min(index + size, queryResult.size()));
 
-            ProductQueryResult result = new ProductQueryResult(suggestions, list.size(), suggestionQuery.getPage());
+            ProductQueryResult result = new ProductQueryResult(suggestions, queryResult.size(), suggestionQuery.getPage());
 
             return ResponseEntity.ok(result);
         }
@@ -244,7 +249,7 @@ public class PiaInternshipApplication {
      * */
     @CrossOrigin(origins = corsOrigin, allowCredentials = "true")
     @PatchMapping("/api/updateUser")
-    public ResponseEntity<Void> updateUser(@RequestBody UpdateUserRequest request, @CookieValue(value = "token", required = false) String token) {
+    public ResponseEntity<User> updateUser(@RequestBody UpdateUserRequest request, @CookieValue(value = "token", required = false) String token) {
         if  (token == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -253,12 +258,21 @@ public class PiaInternshipApplication {
             // User doesn't exist.
             return ResponseEntity.badRequest().build();
         }
+        if (request.getName() == null || request.getName().isEmpty()
+            || request.getSurname() == null || request.getSurname().isEmpty()
+            || request.getPhoneNumber() == null || request.getPhoneNumber().isEmpty()
+        ) {
+            return ResponseEntity.badRequest().build();
+        }
+
         var user = userOptional.get();
         user.setName(request.getName());
         user.setSurname(request.getSurname());
-        user.setEmail(request.getEmail());
+        user.setPhoneNumber(request.getPhoneNumber());
 
-        return ResponseEntity.ok().build();
+        userRepository.save(user);
+
+        return ResponseEntity.ok(user);
     }
 
 }

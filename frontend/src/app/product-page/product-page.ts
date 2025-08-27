@@ -5,7 +5,11 @@ import { Suggestions } from "./suggestions/suggestions";
 import { ApiService } from '../services/api-service';
 import { catchError, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
+<<<<<<< Updated upstream
 import { Header } from '../header/header';
+=======
+import { CartService } from '../cart/cart-service';
+>>>>>>> Stashed changes
 
 @Component({
     selector: 'app-product-page',
@@ -15,6 +19,7 @@ import { Header } from '../header/header';
 })
 export class ProductPage {
     apiService: ApiService = inject(ApiService);
+    cartService: CartService = inject(CartService);
     @Input() product: WritableSignal<Product | null> = signal(null);
 
     constructor(private route: ActivatedRoute, public router: Router) { }
@@ -31,5 +36,12 @@ export class ProductPage {
                 this.product.set(product)
             })
         });
+    }
+
+    addToCart() {
+        const product = this.product();
+        if (product) {
+            this.cartService.addToCart(product  );
+        }
     }
 }

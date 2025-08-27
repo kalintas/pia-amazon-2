@@ -31,10 +31,10 @@ export class Suggestions {
     suggestions: WritableSignal<Array<Product>> = signal([]);
 
     constructor(public router: Router) {
-    }
-    
-    ngOnInit() {
         this.setSwipeInterval();
+    }
+
+    ngOnChanges() {
         this.getSuggestions();
     }
 
@@ -56,7 +56,7 @@ export class Suggestions {
         this.swipeInterval = setInterval(() => {
             if (this.suggestions().length > 0) {
                 const nextPage = this.currentPage() < this.totalPages() ? this.currentPage() + 1 : 1;
-                this.currentPage.set(nextPage);
+                this.onPageChange(nextPage);
             }
         }, 10000);
     }

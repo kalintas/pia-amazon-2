@@ -7,9 +7,9 @@
     <div class="profile-details">
         <h1>User Profile</h1>
         <button class="edit-btn" (click)="openPopUp()">Edit Info</button>
-        <span>{{user.name}}</span>
-        <span>{{user.email}}</span>
-        <span>{{user.phoneNumber}}</span>
+        <span>{{user().name}} {{user().surname}}</span>
+        <span>{{user().email}}</span>
+        <span>{{user().phoneNumber}}</span>
         <button class="signout-btn" (click)="signOut()">Sign out</button>
     </div>
 </div>
@@ -34,7 +34,6 @@
         <h2>Edit Profile</h2>
         <input [formControl]="userName" class="edit-name" placeholder="Name">
         <input [formControl]="userSurname" class="edit-name" placeholder="Surname">
-        <input [formControl]="userEmail" class="edit-email" type="email" placeholder="Email">
         <input [formControl]="userPhoneNumber" class="edit-phone" type="tel" placeholder="Phone Number">
         <button class="submit-btn" type="submit">Submit</button>
     </form>

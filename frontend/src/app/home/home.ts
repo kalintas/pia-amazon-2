@@ -63,7 +63,6 @@ export class Home {
         this.apiService.searchQuery(query).subscribe((result) => {
             this.searchResult.set(result.products);
             this.searchResultCount.set(result.queryResultCount);
-            console.log(result);
         });
     }
 

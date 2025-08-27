@@ -67,9 +67,12 @@ export class ApiService {
     return this.http.post<ProductQueryResult>(`${this.apiRoute}/suggestions`, query, { withCredentials: true });
   }
 
-  updateUser(user: UpdateUserRequest) {
-    this.http.patch(`${this.apiRoute}/updateUser`, user, { withCredentials: true }).subscribe((response) => {
-    });
+  updateUser(user: UpdateUserRequest) : Observable<User> {
+    return this.http.patch<User>(`${this.apiRoute}/updateUser`, user, { withCredentials: true }).pipe(
+      tap((user) => {
+        this.user.set(user)
+      })
+    );
   }
 
 }
