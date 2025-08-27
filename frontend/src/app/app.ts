@@ -29,7 +29,7 @@ export class App {
     if (sessionCookie) {
       // Try to log in.
       // With the token cookie.
-      this.apiService.signIn();
+      this.apiService.signIn().subscribe();
     }
   }
 

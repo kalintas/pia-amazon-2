@@ -3,5 +3,5 @@ export interface SearchQuery {
     name: string,
     category: string,
     page: number,
-    productCount: number
+    pageSize: number
 }

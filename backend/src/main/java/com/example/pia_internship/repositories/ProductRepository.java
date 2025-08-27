@@ -1,10 +1,11 @@
-package com.example.pia_internship;
+package com.example.pia_internship.repositories;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import com.example.pia_internship.entities.Product;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
 public interface ProductRepository extends MongoRepository<Product, String>, CustomProductRepository {
+
+    List<Product> findByCategory(String category);
 }

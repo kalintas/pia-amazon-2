@@ -1,8 +1,9 @@
-import { Component, Input, signal, input, computed } from '@angular/core';
+import { Component, Input, signal, input, computed, inject, WritableSignal } from '@angular/core';
 import { Product } from '../../interfaces/product';
 import { Pagination } from '../../pagination/pagination';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ApiService } from '../../services/api-service';
 
 @Component({
     selector: 'app-suggestions',
@@ -12,44 +13,58 @@ import { Router } from '@angular/router';
     standalone: true
 })
 export class Suggestions {
+
+    apiService: ApiService = inject(ApiService);
     product = input.required<Product>();
 
     swipeInterval!: number;
-    ProductDatabase: Product[] = []
+
+    currentPage = signal<number>(1);
+    
+    totalSuggestionCount = signal<number>(0);
+    maximumProductPerPage = signal<number>(10);
+
+    totalPages = computed(() => {
+        return Math.ceil(this.totalSuggestionCount() / this.maximumProductPerPage())
+    });
+
+    suggestions: WritableSignal<Array<Product>> = signal([]);
 
     constructor(public router: Router) {
+    }
+    
+    ngOnInit() {
         this.setSwipeInterval();
+        this.getSuggestions();
+    }
+
+    getSuggestions() {
+        let query = {
+            "productId": this.product().id,
+            "page": this.currentPage(),
+            "pageSize": this.maximumProductPerPage()
+        };
+
+        this.apiService.getSuggestions(query).subscribe((result) => {
+            this.totalSuggestionCount.set(result.queryResultCount);
+            this.suggestions.set(result.products);
+        });
     }
 
     setSwipeInterval() {
         clearInterval(this.swipeInterval);
         this.swipeInterval = setInterval(() => {
-            if (this.similar().length > 0) {
+            if (this.suggestions().length > 0) {
                 const nextPage = this.currentPage() < this.totalPages() ? this.currentPage() + 1 : 1;
                 this.currentPage.set(nextPage);
             }
         }, 10000);
     }
 
-    currentPage = signal<number>(1);
-    totalPages = computed(() => {
-        const currentCategory = this.product().category;
-        const sameCategory = this.ProductDatabase.filter(p => p.category === currentCategory && p.id !== this.product().id);
-        return Math.ceil(sameCategory.length / this.maximumProductPerPage());
-    });
-    maximumProductPerPage = signal<number>(10);
-
-    similar = computed(() => {
-        const currentCategory = this.product().category;
-        const sameCategory = this.ProductDatabase.filter(p => p.category === currentCategory && p.id !== this.product().id);
-        const startIdx = (this.currentPage() - 1) * this.maximumProductPerPage();
-        const endIdx = startIdx + this.maximumProductPerPage();
-        return sameCategory.slice(startIdx, endIdx);
-    })
-
     onPageChange(page: number) {
         this.currentPage.set(page);
         this.setSwipeInterval();
+        this.getSuggestions();
     }
 
     onProductClick(product: Product) {

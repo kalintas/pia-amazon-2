@@ -1,7 +1,7 @@
 import { Product } from "./product";
 
-export interface SearchQueryResult {
+export interface ProductQueryResult {
     products: Product[],
-    searchResultCount: number,
+    queryResultCount: number,
     currentPage: number
 }

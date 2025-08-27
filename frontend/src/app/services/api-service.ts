@@ -3,9 +3,11 @@ import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { User } from '../interfaces/user';
 import { SearchQuery } from '../interfaces/searchQuery';
 import { Product } from '../interfaces/product';
-import { Observable } from 'rxjs';
-import { SearchQueryResult } from '../interfaces/searchQueryResult';
+import { observable, Observable, tap } from 'rxjs';
+import { ProductQueryResult } from '../interfaces/productQueryResult';
 import { Auth } from '@angular/fire/auth';
+import { UpdateUserRequest } from '../interfaces/updateUserRequest';
+import { SuggestionQuery } from '../interfaces/suggestionQuery';
 
 @Injectable({
   providedIn: 'root'
@@ -22,24 +24,25 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  signIn(uid?: string) {
+  signIn(uid?: string) : Observable<User> {
     let url = `${this.apiRoute}/signIn`;
     if (uid) {
       url += '/' + uid;
     }
-    this.userObservable.set(this.http.get<User>(url, { withCredentials: true }));
-    this.userObservable()?.subscribe((user) => {
-      this.user.set(user);
-    });
+    const request = this.http.get<User>(url, { withCredentials: true }).pipe(
+      tap((user) => {
+        this.user.set(user)
+      })
+    );
+    this.userObservable.set(request);
+    return request;
   }
   
-  signUp(user: User) {
-    this.http.post(`${this.apiRoute}/signUp`, user).subscribe((response) => {
-      console.log(response);
-    });
+  signUp(user: User) : Observable<Object> {
+    return this.http.post(`${this.apiRoute}/signUp`, user);
   }
 
-  signOut(uid: string) {
+  signOut() {
     this.http.post(`${this.apiRoute}/signOut`, null, { withCredentials: true }).subscribe(() => {
       this.auth.signOut().then(() => {
         this.user.set(null);
@@ -52,7 +55,21 @@ export class ApiService {
     return this.http.get<Array<string>>(`${this.apiRoute}/productCategories`);
   }
 
-  searchQuery(query: SearchQuery) : Observable<SearchQueryResult> {
-    return this.http.post<SearchQueryResult>(`${this.apiRoute}/search`, query);
+  getProduct(id: string) : Observable<Product> {
+    return this.http.get<Product>(`${this.apiRoute}/product/${id}`);
   }
+
+  searchQuery(query: SearchQuery) : Observable<ProductQueryResult> {
+    return this.http.post<ProductQueryResult>(`${this.apiRoute}/search`, query);
+  }
+
+  getSuggestions(query: SuggestionQuery) : Observable<ProductQueryResult> {
+    return this.http.post<ProductQueryResult>(`${this.apiRoute}/suggestions`, query, { withCredentials: true });
+  }
+
+  updateUser(user: UpdateUserRequest) {
+    this.http.patch(`${this.apiRoute}/updateUser`, user, { withCredentials: true }).subscribe((response) => {
+    });
+  }
+
 }
