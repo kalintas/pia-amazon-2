@@ -5,11 +5,8 @@ import { Suggestions } from "./suggestions/suggestions";
 import { ApiService } from '../services/api-service';
 import { catchError, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
-<<<<<<< Updated upstream
 import { Header } from '../header/header';
-=======
 import { CartService } from '../cart/cart-service';
->>>>>>> Stashed changes
 
 @Component({
     selector: 'app-product-page',
