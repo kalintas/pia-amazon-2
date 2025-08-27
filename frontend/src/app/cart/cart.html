@@ -12,8 +12,8 @@
             <button class="cart-continue-shopping" (click)="open.set(false)">Continue Shopping</button>
         </div>
         } @else {
-        @for (item of cartService.getItems(); track item.id) {
         <div class="cart-items">
+            @for (item of cartService.getItems(); track item.id) {
             <div class="cart-item">
                 <img [src]="item.imageUrl" (alt)="item.name" class="cart-item-image">
                 <div class="cart-item-details">
@@ -31,8 +31,8 @@
                 </div>
                 <button class="cart-item-remove" (click)="this.cartService.removeItem(item)">×</button>
             </div>
+            }
         </div>
-        }
         }
         <div class="cart-footer">
             <div class="cart-total">

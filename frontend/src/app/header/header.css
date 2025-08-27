@@ -88,8 +88,8 @@
     line-height: 1;
     transition: background-color 0.2s, transform 0.12s ease, box-shadow 0.2s, filter 0.2s;
     position: relative;
-    margin-left: 15px;
-    margin-right: 30px;
+    margin-left: 0;
+    margin-right: 0;
     box-shadow: 0 8px 18px rgba(21, 101, 192, 0.28);
 }
 
@@ -122,8 +122,8 @@
 
 .new-label {
     position: absolute;
-    top: 5px;
-    right: 130px;
+    top: -5px;
+    right: -23px;
     background: #21e50b;
     border-radius: 12px;
     padding: 1px 4px;
@@ -132,9 +132,21 @@
     color: #0a2e04;
     animation: newLabelPulse 0.6s ease-in-out infinite alternate;
     will-change: transform;
+    z-index: 20;
 }
 
 @keyframes newLabelPulse {
     0% { transform: scale(1); }
     100% { transform: scale(1.08); }
 }
+
+.reels-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    margin-left: 15px;
+    margin-right: 30px;
+}
+
+.reels-group .reels-btn { margin: 0; }

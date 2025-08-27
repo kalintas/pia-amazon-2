@@ -5,10 +5,11 @@ import { Suggestions } from "./suggestions/suggestions";
 import { ApiService } from '../services/api-service';
 import { catchError, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { Header } from '../header/header';
 
 @Component({
     selector: 'app-product-page',
-    imports: [Suggestions, CommonModule],
+    imports: [Suggestions, CommonModule, Header],
     templateUrl: './product-page.html',
     styleUrl: './product-page.css'
 })

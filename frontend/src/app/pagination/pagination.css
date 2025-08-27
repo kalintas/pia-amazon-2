@@ -14,10 +14,10 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin: 48px 0 0 0;
+    margin: 15px 0 0 0;
 }
 .pagination-btn {
-    padding: 8px 16px;
+    padding: 5px 10px;
     border: 1px solid #cdd6e1;
     border-radius: 12px;
     background: #ffffff;

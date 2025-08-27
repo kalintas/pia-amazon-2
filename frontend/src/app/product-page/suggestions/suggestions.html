@@ -1,14 +1,16 @@
 <div class="suggestions-title">Similar Products</div>
-@for (product of suggestions(); track product.id) {
-    <div id="suggestions-list" class="suggestions-list">
-        <div class="suggestion-item">
-            <img [src]="product.imageUrl" class="suggestion-img" />
-            <div class="suggestion-info">
-                <div class="suggestion-name">{{product.name}}</div>
-                <div class="suggestion-price">${{product.price}}</div>
-            </div>
-            <button class="suggestion-view-btn" (click)="onProductClick(product)">View</button>
+<div id="suggestions-list" class="suggestions-list">
+    @for (product of suggestions(); track product.id) {
+    <div class="suggestion-item">
+        <img [src]="product.imageUrl" class="suggestion-img" />
+        <div class="suggestion-info">
+            <div class="suggestion-name">{{product.name}}</div>
+            <div class="suggestion-price">${{product.price}}</div>
         </div>
+        <button class="suggestion-view-btn" (click)="onProductClick(product)">View</button>
     </div>
-}
-<app-pagination [currentPage]="currentPage()" [totalPages]="totalPages()" (pageChange)="onPageChange($event)"></app-pagination>
+    }
+</div>
+<div class="suggestions-footer">
+    <app-pagination [currentPage]="currentPage()" [totalPages]="totalPages()" (pageChange)="onPageChange($event)"></app-pagination>
+</div>

@@ -27,6 +27,6 @@ export class Header {
   }
 
   reloadPage () {
-    window.location.reload();
+    this.router.navigate(['home']);
   }
 }

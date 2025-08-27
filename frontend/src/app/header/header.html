@@ -7,13 +7,14 @@
     <span class="homepage-brand">Amazon 2</span>
 </div>
 
-<button class="reels-btn" (click)="goToReelsPage()">
+<div class="reels-group">
+    <button class="reels-btn" (click)="goToReelsPage()">
     <img src="icons8-instagram-reels-16.png" alt=""> Reels 
-</button>
-
-<div class="new-label">
+    </button>
+    <div class="new-label">
     <span class="new-span">New</span>
-</div>
+    </div>
+</div>  
 
 @if (this.apiService.user()) {
     <div>

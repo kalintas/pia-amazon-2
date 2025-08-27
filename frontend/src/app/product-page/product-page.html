@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 @if (product(); as product) {
     <div class="product-detail">
         <img [src]="product.imageUrl" class="product-detail-image">
@@ -11,7 +13,7 @@
     </div>
     <app-suggestions [product]="product"></app-suggestions>
 } @else {
-    <div>
+    <div class="loading-container">
         Loading the product...
     </div>
 }
