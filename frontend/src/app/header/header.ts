@@ -1,8 +1,8 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { Cart } from '../cart/cart';
-import { AuthPage } from '../auth-page/auth-page';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
+import { CartService } from '../cart/cart-service';
 
 @Component({
   selector: 'app-header',
@@ -12,13 +12,11 @@ import { ApiService } from '../services/api-service';
 })
 export class Header {
   apiService: ApiService = inject(ApiService);
-
+  cartService: CartService = inject(CartService);
+  
   constructor(public router: Router) {}
 
   @ViewChild(Cart) cartComponent!: Cart;
-  @ViewChild(AuthPage) profileComponent!: AuthPage;
-
-  cartItemCount: number = 0;
 
   togleCart() {
     this.cartComponent.open.set(!this.cartComponent.open());

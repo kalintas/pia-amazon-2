@@ -6,25 +6,25 @@
             <h3>Shopping Cart</h3>
             <button class="cart-close-btn" (click)="open.set(false)">×</button>
         </div>
-        @if (cartService.items().length === 0) {
+        @if (cartService.getItems().length === 0) {
         <div class="cart-empty">
             <p>Your cart is empty</p>
             <button class="cart-continue-shopping" (click)="open.set(false)">Continue Shopping</button>
         </div>
         } @else {
-        @for (item of cartService.items(); track item.name) {
+        @for (item of cartService.getItems(); track item.id) {
         <div class="cart-items">
             <div class="cart-item">
-                <img (src)="item.imageUrl" (alt)="item.name" class="cart-item-image">
+                <img [src]="item.imageUrl" (alt)="item.name" class="cart-item-image">
                 <div class="cart-item-details">
                     <h4 class="cart-item-name">{{item.name}}</h4>
                     <p class="cart-item-category">{{item.category}}</p>
                     <p class="cart-item-price">${{item.price}}</p>
                 </div>
                 <div class="cart-item-quantity">
-                    <button class="quantity-btn" (click)="item.quantity -= 1;">-</button>
+                    <button class="quantity-btn" (click)="this.cartService.changeQuantity(item, -1)">-</button>
                     <span class="quantity-display">{{item.quantity}}</span>
-                    <button class="quantity-btn" (click)="item.quantity += 1;">+</button>
+                    <button class="quantity-btn" (click)="this.cartService.changeQuantity(item, 1)">+</button>
                 </div>
                 <div class="cart-item-total">
                     ${{(item.price * item.quantity).toFixed(2)}}
@@ -37,7 +37,7 @@
         <div class="cart-footer">
             <div class="cart-total">
                 <span>Total:</span>
-                <span class="cart-total-amount">${{this.cartService.total_price()}}</span>
+                <span class="cart-total-amount">${{this.cartService.totalPrice().toFixed(2)}}</span>
             </div>
             <div class="cart-actions">
                 <button class="cart-clear-btn" (click)="this.cartService.clearCart()">Clear Cart</button>
