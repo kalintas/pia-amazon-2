@@ -1,5 +1,5 @@
 <button class="cart-btn" (click)="togleCart()">
-    🛒 Cart ({{cartItemCount}})
+    🛒 Cart ({{this.cartService.getItems().length}})
 </button>   
 
 <div class="icon-brand">
