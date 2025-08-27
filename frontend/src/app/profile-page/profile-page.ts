@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, inject, OnInit, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
 import { User } from '../interfaces/user';
@@ -15,8 +15,7 @@ export class ProfilePage implements OnInit {
   apiService: ApiService = inject(ApiService);
   user!: User;
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   ngOnInit() {
     let user = this.apiService.user();

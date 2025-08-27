@@ -24,4 +24,8 @@ export class Header {
   togleCart() {
     this.cartComponent.open.set(!this.cartComponent.open());
   }
+
+  goToReelsPage() {
+    this.router.navigate(['/reels']);
+  }
 }

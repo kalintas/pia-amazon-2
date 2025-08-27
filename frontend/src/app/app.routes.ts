@@ -9,6 +9,7 @@ import { ContactUs } from './contact-us/contact-us';
 import { ProfilePage } from './profile-page/profile-page';
 import { CanActivateProfile } from './profile-page/can-activate-profile';
 import { Checkout } from './checkout/checkout';
+import { ReelsPage } from './reels-page/reels-page';
 
 export const routes: Routes = [
   {
@@ -34,6 +35,10 @@ export const routes: Routes = [
     component: Home
   },
   {
+    path: 'reels',
+    component: ReelsPage
+  },
+  {
     path: 'privacy-policy',
     component: PrivacyPolicy
   },
@@ -45,10 +50,6 @@ export const routes: Routes = [
     path: 'contact-us',
     component: ContactUs
   },
-  {
-    path: 'home',
-    component: Home
-  }, 
   {
     path: 'privacy-policy',
     component: PrivacyPolicy

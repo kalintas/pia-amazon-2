@@ -1,0 +1,30 @@
+<div class="reels-modal">
+    <h1 class="title">Reels</h1>
+    <div class="reels-screen">
+        <img class="reel-img" src="default_pp.png" alt="">
+        <button class="reaction-btn like-btn"><img src="like-thumbs-up-hand-social-media_icon-icons.com_61429.ico" alt="Like"></button>
+        <button class="reaction-btn dislike-btn"><img src="thumbs-down-hand-social-media-dislike_icon-icons.com_61424.ico" alt="Dislike"></button>
+        <button class="reaction-btn comments-btn" (click)="openPopUp()">💬</button>
+    </div>
+</div>
+
+<button class="back-to-home" (click)="backToHomePage()">
+    Back to Home
+</button>
+
+<div class="comments-section" [ngStyle]="{'display': displayPopUp}">
+    <button class="close-btn" (click)="closePopUp()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="comments-container">
+        <h2>Comments</h2>
+        <div class="comment">
+            <p><strong>User1:</strong> Great reel!</p>
+        </div>
+        <div class="comment">
+            <p><strong>User2:</strong> Loved it!</p>
+        </div>
+        <input class="comment-input" type="text" placeholder="Add a comment...">
+        <button class="submit-comment-btn">Submit</button>
+    </div>
+</div>

@@ -7,6 +7,14 @@
     <span class="homepage-brand">Amazon 2</span>
 </div>
 
+<button class="reels-btn" (click)="goToReelsPage()">
+    <img src="icons8-instagram-reels-16.png" alt=""> Reels 
+</button>
+
+<div class="new-label">
+    <span class="new-span">New</span>
+</div>
+
 @if (this.apiService.user()) {
     <div>
         <img src="default_pp.png" class="profile-photo" alt="Default profile photo" (click)="this.router.navigate(['/profile'])">
