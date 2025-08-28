@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.example.pia_internship.entities.*;
 import com.example.pia_internship.repositories.ProductRepository;
+import com.example.pia_internship.repositories.ReelCommentsRepository;
+import com.example.pia_internship.repositories.ReelRepository;
 import com.example.pia_internship.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -22,12 +24,16 @@ public class PiaInternshipApplication {
 
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final ReelCommentsRepository reelCommentsRepository;
+    private final ReelRepository reelRepository;
     private final String corsOrigin = "http://localhost:4200";
 
     @Autowired
-    public PiaInternshipApplication(UserRepository userRepository, ProductRepository productRepository) {
+    public PiaInternshipApplication(UserRepository userRepository, ProductRepository productRepository, ReelCommentsRepository reelCommentsRepository, ReelRepository reelRepository) {
         this.userRepository = userRepository;
         this.productRepository = productRepository;
+        this.reelCommentsRepository = reelCommentsRepository;
+        this.reelRepository = reelRepository;
     }
 
     public static void main(String[] args) throws IOException {
@@ -273,6 +279,26 @@ public class PiaInternshipApplication {
         userRepository.save(user);
 
         return ResponseEntity.ok(user);
+    }
+
+    /**
+     * Sends a random reel from the reel database.
+     * */
+    @CrossOrigin(origins = corsOrigin, allowCredentials = "true")
+    @GetMapping("/api/reel")
+    public ResponseEntity<Reel> reel(@CookieValue(value = "token", required = false) String token) {
+        Reel reel = reelRepository.getRandomReel();
+        return ResponseEntity.ok(reel);
+    }
+
+    @CrossOrigin(origins = corsOrigin, allowCredentials = "true")
+    @GetMapping("/api/reel/comments/{id}")
+    public ResponseEntity<ReelComment> reelComments(@PathVariable String reelId) {
+        var optionalReelComments = reelCommentsRepository.findByReelId(reelId);
+        if (optionalReelComments.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(optionalReelComments.get());
     }
 
 }

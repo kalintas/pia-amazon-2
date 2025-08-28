@@ -1,16 +1,39 @@
 import { NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api-service';
+import { Product } from '../interfaces/product';
+import { Reel } from '../interfaces/reel';
 
 @Component({
-  selector: 'app-reels-page',
-  imports: [NgStyle],
-  templateUrl: './reels-page.html',
-  styleUrl: './reels-page.css'
+    selector: 'app-reels-page',
+    imports: [NgStyle],
+    templateUrl: './reels-page.html',
+    styleUrl: './reels-page.css'
 })
 export class ReelsPage {
 
-  constructor(private router: Router) {}
+    apiService: ApiService = inject(ApiService)
+    commentsEnabled = signal(false);
+
+    reel: WritableSignal<Reel | null> = signal(null);
+    product: WritableSignal<Product | null> = signal(null);
+
+    constructor(private router: Router) { }
+
+    ngOnInit() {
+        this.fetchReel();
+    }
+
+    fetchReel() {
+        this.apiService.getReel().subscribe((reel) => {
+            this.apiService.getProduct(reel.productId).subscribe((product) => {
+                this.product.set(product);
+                console.log(product)
+            })
+            this.reel.set(reel);
+        })
+    }
 
   like_number = 0;
   dislike_number = 0;
@@ -28,17 +51,7 @@ export class ReelsPage {
     this.comment_number = this.comment_number + 1;
   }
 
-  backToHomePage() {
-    this.router.navigate(['home'])
-  }
-
-  displayPopUp = "none";
-
-  openPopUp() {
-    this.displayPopUp = "flex";
-  }
-
-  closePopUp() {
-    this.displayPopUp = "none";
-  }
+    backToHomePage() {
+        this.router.navigate(['home'])
+    }
 }

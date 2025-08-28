@@ -39,6 +39,8 @@ export class Home {
     maximumProductPerPage: number;
     Math = Math;
 
+    debounceTimeout: number = 0;
+
     constructor(private router: Router) {
         this.maximumProductPerPage = window.innerWidth <= 600 ? 20 : 60;
     }
@@ -51,7 +53,6 @@ export class Home {
     }
 
     onSearch() {
-
         const query: SearchQuery = {
             "id": this.searchId,
             "name": this.searchName,
@@ -64,6 +65,14 @@ export class Home {
             this.searchResult.set(result.products);
             this.searchResultCount.set(result.queryResultCount);
         });
+    }
+
+    onSearchDebounce(wait: number = 400) {
+        clearTimeout(this.debounceTimeout);
+
+        this.debounceTimeout = setTimeout(() => {
+            this.onSearch();
+        }, wait);
     }
 
     onPageChange(page: number) {

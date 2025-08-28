@@ -8,6 +8,8 @@ import { ProductQueryResult } from '../interfaces/productQueryResult';
 import { Auth } from '@angular/fire/auth';
 import { UpdateUserRequest } from '../interfaces/updateUserRequest';
 import { SuggestionQuery } from '../interfaces/suggestionQuery';
+import { Reel } from '../interfaces/reel';
+import { ReelComment } from '../interfaces/reelComment';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +75,13 @@ export class ApiService {
         this.user.set(user)
       })
     );
+  }
+
+  getReel() : Observable<Reel> {
+    return this.http.get<Reel>(`${this.apiRoute}/reel`);
+  }
+  getReelComments(reelId: string) : Observable<Array<ReelComment>> {
+    return this.http.get<Array<ReelComment>>(`${this.apiRoute}/reel/comments/${reelId}`);
   }
 
 }

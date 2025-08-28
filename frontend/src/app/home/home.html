@@ -1,8 +1,8 @@
 <app-header></app-header>
 <div class="queryBar">
-    <input class="idSearchInput input" [(ngModel)]="searchId" placeholder="Product ID" (keyup)="onSearch()" />
-    <input class="searchInput input" [(ngModel)]="searchName" placeholder="Product Name" (keyup)="onSearch()" />
-    <select class="searchCategory select" [(ngModel)]="selectedCategory" name="Category" (change)="onSearch()">
+    <input class="idSearchInput input" [(ngModel)]="searchId" placeholder="Product ID" (keyup)="onSearchDebounce()" />
+    <input class="searchInput input" [(ngModel)]="searchName" placeholder="Product Name" (keyup)="onSearchDebounce()" />
+    <select class="searchCategory select" [(ngModel)]="selectedCategory" name="Category" (change)="onSearchDebounce()">
         <option value="">All</option>
         @for (category of categoryOptions(); track category) {
             <option [value]="category">

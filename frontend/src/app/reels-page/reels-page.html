@@ -1,14 +1,16 @@
 <div class="reels-modal">
     <h1 class="title">Reels</h1>
     <div class="reels-screen">
-        <img class="reel-img" src="default_pp.png" alt="">
+        @if (this.product(); as product) {
+            <img class="reel-img" [src]="product.imageUrl" alt="">
+        }
         <button class="reaction-btn like-btn" (click)="increaseLike()"><img src="like-thumbs-up-hand-social-media_icon-icons.com_61429.ico" alt="Like">
         <h1>{{like_number}}</h1>
         </button>
         <button class="reaction-btn dislike-btn" (click)="increaseDislike()"><img src="thumbs-down-hand-social-media-dislike_icon-icons.com_61424.ico" alt="Dislike">
         <h1>{{dislike_number}}</h1>
         </button>
-        <button class="reaction-btn comments-btn" (click)="openPopUp()"><img src="commentmono_105952.ico" alt="">
+        <button class="reaction-btn comments-btn" (click)="commentsEnabled.set(true)"><img src="commentmono_105952.ico" alt="">
         <h1>{{comment_number}}</h1>
         </button>
     </div>
@@ -18,8 +20,8 @@
     ← Back to Home
 </button>
 
-<div class="comments-section" [ngStyle]="{'display': displayPopUp}">
-    <button class="close-btn" (click)="closePopUp()">
+<div class="comments-section" [ngStyle]="{'display': commentsEnabled() ? 'flex' : 'none'}">
+    <button class="close-btn" (click)="commentsEnabled.set(false)">
         <span aria-hidden="true">&times;</span>
     </button>
     <div class="comments-container">
