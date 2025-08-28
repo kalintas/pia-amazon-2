@@ -1,38 +1,62 @@
 <div class="reels-modal">
-    <h1 class="title">Reels</h1>
-    <div class="reels-screen">
-        @if (this.product(); as product) {
-            <img class="reel-img" [src]="product.imageUrl" alt="">
-        }
-        <button class="reaction-btn like-btn" (click)="increaseLike()"><img src="like-thumbs-up-hand-social-media_icon-icons.com_61429.ico" alt="Like">
-        <h1>{{like_number}}</h1>
-        </button>
-        <button class="reaction-btn dislike-btn" (click)="increaseDislike()"><img src="thumbs-down-hand-social-media-dislike_icon-icons.com_61424.ico" alt="Dislike">
-        <h1>{{dislike_number}}</h1>
-        </button>
-        <button class="reaction-btn comments-btn" (click)="commentsEnabled.set(true)"><img src="commentmono_105952.ico" alt="">
-        <h1>{{comment_number}}</h1>
-        </button>
+  <h1 class="title">Reels</h1>
+  <div class="reels-screen">
+    @if (this.product(); as product) {
+    <img class="reel-img" [src]="product.imageUrl" alt="" (click)="goToProductPage()"/>
+    <div class="info-overlay">
+      <span class="reel-name">{{ product.name }}</span>
+      <div class="reels-product-info">
+        <span class="reel-price">{{ product.price }} $</span>
+        <span class="reel-description">{{ product.description }}</span>
+      </div>
     </div>
+    } @else {
+    <span class="loading-product">Loading Product...</span>
+    }
+    <button class="reaction-btn like-btn" (click)="increaseLike()">
+      <img
+        src="like-thumbs-up-hand-social-media_icon-icons.com_61429.ico"
+        alt="Like"
+      />
+      <span class="count">{{ like_number }}</span>
+    </button>
+    <button class="reaction-btn dislike-btn" (click)="increaseDislike()">
+      <img
+        src="thumbs-down-hand-social-media-dislike_icon-icons.com_61424.ico"
+        alt="Dislike"
+      />
+      <span class="count">{{ dislike_number }}</span>
+    </button>
+    <button
+      class="reaction-btn comments-btn"
+      (click)="commentsEnabled.set(true)"
+    >
+      <img src="commentmono_105952.ico" alt="" />
+      <span class="count">{{ comment_number }}</span>
+    </button>
+  </div>
 </div>
 
-<button class="back-to-home" (click)="backToHomePage()">
-    ← Back to Home
-</button>
+<button class="back-to-home" (click)="backToHomePage()">← Back to Home</button>
 
-<div class="comments-section" [ngStyle]="{'display': commentsEnabled() ? 'flex' : 'none'}">
-    <button class="close-btn" (click)="commentsEnabled.set(false)">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <div class="comments-container">
-        <h2>Comments</h2>
-        <div class="comment">
-            <p><strong>User1:</strong> Great reel!</p>
-        </div>
-        <div class="comment">
-            <p><strong>User2:</strong> Loved it!</p>
-        </div>
-        <input class="comment-input" type="text" placeholder="Add a comment...">
-        <button class="submit-comment-btn" (click)="increaseComment()">Submit</button>
+<div
+  class="comments-section"
+  [ngStyle]="{ display: commentsEnabled() ? 'flex' : 'none' }"
+>
+  <button class="close-btn" (click)="commentsEnabled.set(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="comments-container">
+    <h2>Comments</h2>
+    <div class="comment">
+      <p><strong>User1:</strong> Great reel!</p>
     </div>
+    <div class="comment">
+      <p><strong>User2:</strong> Loved it!</p>
+    </div>
+    <input class="comment-input" type="text" placeholder="Add a comment..." />
+    <button class="submit-comment-btn" (click)="increaseComment()">
+      Submit
+    </button>
+  </div>
 </div>
