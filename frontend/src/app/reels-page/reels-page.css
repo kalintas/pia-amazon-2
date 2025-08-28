@@ -81,18 +81,14 @@
 .reaction-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22); }
 .reaction-btn:active { transform: translateY(0); box-shadow: 0 8px 18px rgba(0,0,0,0.18); }
 
-.like-btn { top: calc(50% - 68px); }
-.dislike-btn { top: calc(50% + 12px); }
-
+.like-btn { top: calc(50% - 68px); background: #16a34a; color: #ffffff; }
+.dislike-btn { top: calc(50% + 12px); background: #ef4444; color: #ffffff; }
 .comments-btn { top: calc(50% + 92px); background: #0ea5e9; color: #ffffff; }
 
 .reaction-btn img, .reaction-btn svg {
     width: 26px;
     height: 26px;
 }
-
-.like-btn { background: #16a34a; color: #ffffff; }
-.dislike-btn { background: #ef4444; color: #ffffff; }
 
 .comments-section {
     position: fixed;

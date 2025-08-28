@@ -12,6 +12,22 @@ export class ReelsPage {
 
   constructor(private router: Router) {}
 
+  like_number = 0;
+  dislike_number = 0;
+  comment_number = 0;
+
+  increaseLike() {
+    return this.like_number = this.like_number + 1;
+  }
+
+  increaseDislike() {
+    return this.dislike_number = this.dislike_number + 1;
+  }
+
+  increaseComment() {
+    this.comment_number = this.comment_number + 1;
+  }
+
   backToHomePage() {
     this.router.navigate(['home'])
   }

@@ -6,7 +6,7 @@
     <img src="default_pp.png" class="profile-photo" alt="Default profile photo">
     <div class="profile-details">
         <h1>User Profile</h1>
-        <button class="edit-btn" (click)="openPopUp()">Edit Info</button>
+        <button class="edit-btn" (click)="editInfoPopUp()">Edit Info</button>
         <span>{{user().name}} {{user().surname}}</span>
         <span>{{user().email}}</span>
         <span>{{user().phoneNumber}}</span>
@@ -26,8 +26,8 @@
     </div>
 </div>
 
-<div class="edit-container" [ngStyle]="{'display': displayPopUp() ? 'block' : 'none'}">
-    <button class="close-btn" (click)="closePopUp()">
+<div class="edit-container" [ngStyle]="{'display': displayEditPopUp}">
+    <button class="close-btn" (click)="closeEditPopUp()">
         <span aria-hidden="true">&times;</span>
     </button>
     <form (submit)="submitChanges($event)" class="edit-infos">
@@ -35,8 +35,18 @@
         <input [formControl]="userName" class="edit-name" placeholder="Name">
         <input [formControl]="userSurname" class="edit-name" placeholder="Surname">
         <input [formControl]="userPhoneNumber" class="edit-phone" type="tel" placeholder="Phone Number">
-        <button class="submit-btn" type="submit">Submit</button>
+        <button class="submit-btn" type="submit" (click)="submissionSuccessfulPopUp()">Submit</button>
     </form>
+</div>
+
+<div class="submission-container" [ngStyle]="{'display': displaySubmissionPopUp}">
+    <button class="close-btn" (click)="closeSubmissionPopUp()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="submission-details">
+        <h2>Profile Updated Successfully!</h2>
+        <button class="ok-btn" (click)="closeSubmissionPopUp()">OK</button>
+    </div>
 </div>
 
 <app-footer></app-footer>

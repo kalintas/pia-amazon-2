@@ -21,7 +21,8 @@ export class ProfilePage implements OnInit {
   userName: FormControl = new FormControl("");
   userSurname: FormControl = new FormControl("");
   userPhoneNumber: FormControl = new FormControl("");
-  displayPopUp = signal(false);
+  displayEditPopUp = "none";
+  displaySubmissionPopUp = "none";
 
   constructor(private router: Router) {
   }
@@ -35,15 +36,23 @@ export class ProfilePage implements OnInit {
     }
   }
 
-  openPopUp() {
-    this.displayPopUp.set(true);
+  editInfoPopUp() {
+    this.displayEditPopUp = "block";
     this.userName.setValue(this.user().name);
     this.userSurname.setValue(this.user().surname);
     this.userPhoneNumber.setValue(this.user().phoneNumber);
   }
 
-  closePopUp() {
-    this.displayPopUp.set(false);
+  closeEditPopUp() {
+    this.displayEditPopUp = "none";
+  }
+
+  submissionSuccessfulPopUp() {
+    this.displaySubmissionPopUp = "block";
+  }
+
+  closeSubmissionPopUp() {
+    this.displaySubmissionPopUp = "none";
   }
 
   backToHomePage() {
@@ -69,7 +78,7 @@ export class ProfilePage implements OnInit {
       this.user.set(user);
     });
 
-    this.closePopUp();
+    this.closeEditPopUp();
 
     event.preventDefault();
   }

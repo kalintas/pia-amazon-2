@@ -97,7 +97,14 @@
     color: #666;
     margin-top: 400px;
     text-align: center;
-}   
+}
+
+app-footer {
+    display: flex;
+    background-color: #fafafa;
+    justify-content: center;
+    width: 100%;
+}
 
 @media (max-width: 600px) {
     .product-detail-id {

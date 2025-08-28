@@ -216,3 +216,43 @@ body, html {
     outline: none;
     box-shadow: 0 0 5px rgba(37, 99, 235, 0.5);
 }
+
+.submission-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    padding: 100px 40px 100px 40px;
+    border-radius: 12px;
+    width: min(90vw, 360px);
+    text-align: center;
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(18, 38, 63, 0.24);
+}
+
+.ok-btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s ease;
+}
+
+.ok-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.ok-btn:active {
+    transform: translateY(1px);
+}
+
+app-footer {
+    grid-column: 1 / -1;
+    width: 100%;
+}
