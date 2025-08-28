@@ -4,10 +4,12 @@ import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
 import { User } from '../interfaces/user';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Header } from '../header/header';
+import { Footer } from '../footer/footer';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [NgStyle, ReactiveFormsModule],
+  imports: [NgStyle, ReactiveFormsModule, Header, Footer],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })
@@ -19,7 +21,7 @@ export class ProfilePage implements OnInit {
   userName: FormControl = new FormControl("");
   userSurname: FormControl = new FormControl("");
   userPhoneNumber: FormControl = new FormControl("");
-  displayPopUp = "none";
+  displayPopUp = signal(false);
 
   constructor(private router: Router) {
   }
@@ -34,14 +36,14 @@ export class ProfilePage implements OnInit {
   }
 
   openPopUp() {
-    this.displayPopUp = "block";
+    this.displayPopUp.set(true);
     this.userName.setValue(this.user().name);
     this.userSurname.setValue(this.user().surname);
     this.userPhoneNumber.setValue(this.user().phoneNumber);
   }
 
   closePopUp() {
-    this.displayPopUp = "none";
+    this.displayPopUp.set(false);
   }
 
   backToHomePage() {

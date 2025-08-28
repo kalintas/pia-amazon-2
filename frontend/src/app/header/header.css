@@ -23,6 +23,7 @@
     background: #fff;
     padding: 4px;
     transition: box-shadow 0.2s;
+    cursor: pointer;
 }
 
 .homepage-brand {

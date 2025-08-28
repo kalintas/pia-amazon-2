@@ -7,10 +7,11 @@ import { catchError, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Header } from '../header/header';
 import { CartService } from '../cart/cart-service';
+import { Footer } from '../footer/footer';
 
 @Component({
     selector: 'app-product-page',
-    imports: [Suggestions, CommonModule, Header],
+    imports: [Suggestions, CommonModule, Header, Footer],
     templateUrl: './product-page.html',
     styleUrl: './product-page.css'
 })
