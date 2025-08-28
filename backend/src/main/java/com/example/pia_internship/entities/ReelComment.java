@@ -1,13 +1,13 @@
 package com.example.pia_internship.entities;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.List;
 
 @Document(collection = "reelComments")
 public class ReelComment {
-    @Id
+    @MongoId
     private String id;
     private String reelId;
     private String comment;

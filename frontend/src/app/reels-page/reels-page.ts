@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
 import { Product } from '../interfaces/product';
 import { Reel } from '../interfaces/reel';
+import { ReelComment } from '../interfaces/reelComment';
 import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -31,6 +32,7 @@ export class ReelsPage {
 
   reel: WritableSignal<Reel | null> = signal(null);
   product: WritableSignal<Product | null> = signal(null);
+    comments: WritableSignal<Array<ReelComment>> = signal([]);
 
   canSwipe = true;
   Array = Array;
@@ -40,6 +42,15 @@ export class ReelsPage {
       const index = this.currentReelIndex();
       this.fetchReel(index);
     });
+
+        effect(() => {
+            const enabled = this.commentsEnabled();
+            const reel = this.reel();
+            if (enabled && reel) {
+                this.fetchComments(reel.id);
+            }
+            this.canSwipe = !enabled;
+        });
   }
 
   fetchReel(index: number) {
@@ -49,25 +60,30 @@ export class ReelsPage {
       id = this.reelIds[index];
     }
 
-    this.apiService.getReel(id).subscribe((reel: Reel) => {
-      if (!reel) {
-        return;
-      }
-      console.log(reel);
-      this.apiService
-        .getProduct(reel.productId)
-        .subscribe((product: Product) => {
-          this.product.set(product);
-          console.log(product);
+        this.apiService.getReel(id).subscribe((reel: Reel) => {
+            if (!reel) {
+                return;
+            }
+            this.apiService
+                .getProduct(reel.productId)
+                .subscribe((product: Product) => {
+                    this.product.set(product);
+                    console.log(product);;
+                });
+            this.reel.set(reel);
+            this.comments.set([]);
+            if (index >= this.reelIds.length) {
+                this.reelIds.push(reel.id);
+            }
+            this.canSwipe = true;
         });
-      this.reel.set(reel);
-      if (index >= this.reelIds.length) {
-        console.log(reel.id);
-        this.reelIds.push(reel.id);
-      }
-      this.canSwipe = true;
-    });
-  }
+    }
+
+    fetchComments(reelId: string) {
+        this.apiService.getReelComments(reelId).subscribe((comments) => {
+            this.comments.set(comments);
+        });
+    }
 
   increaseLike() {}
 

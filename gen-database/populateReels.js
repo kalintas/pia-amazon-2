@@ -40,14 +40,14 @@ async function populateDatabase() {
 
     const reels = await Promise.all(products.map(async (product) => {
 
-        const reelId = new ObjectId();
+        const reelId = (new ObjectId()).toString();
 
         const commentCount = randomNumber(20);
         const comments = [];
         const commentIds = [];
 
         for (let i = 0; i < commentCount; ++i) {
-            const commentId = new ObjectId();
+            const commentId = (new ObjectId()).toString();
             commentIds.push(commentId);
 
             const subCommentCount = randomNumber(3);

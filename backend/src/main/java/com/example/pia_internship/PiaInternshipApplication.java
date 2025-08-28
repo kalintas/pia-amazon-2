@@ -303,13 +303,10 @@ public class PiaInternshipApplication {
 
 
     @CrossOrigin(origins = corsOrigin, allowCredentials = "true")
-    @GetMapping("/api/reel/comments/{id}")
-    public ResponseEntity<ReelComment> reelComments(@PathVariable String reelId) {
-        var optionalReelComments = reelCommentsRepository.findByReelId(reelId);
-        if (optionalReelComments.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(optionalReelComments.get());
+    @GetMapping("/api/reel/comments/{reelId}")
+    public ResponseEntity<List<ReelComment>> reelComments(@PathVariable String reelId) {
+        var reelComments = reelCommentsRepository.findByReelId(reelId);
+        return ResponseEntity.ok(reelComments);
     }
 
 }

@@ -40,12 +40,11 @@
             <span aria-hidden="true">&times;</span>
         </button>
         <h2>Comments</h2>
-        <div class="comment">
-            <p><strong>User1:</strong> Great reel!</p>
-        </div>
-        <div class="comment">
-            <p><strong>User2:</strong> Loved it!</p>
-        </div>
+        @for (comment of comments(); track comment.id) {
+            <div class="comment" >
+                <p><strong>User1:</strong>{{comment.comment}}</p>
+            </div>
+        }
         <input class="comment-input" type="text" placeholder="Add a comment..." />
         <button class="submit-comment-btn" (click)="increaseComment()">
             Submit

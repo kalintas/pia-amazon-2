@@ -1,5 +1,5 @@
 export interface ReelComment {
-    _id: string,
+    id: string,
     reelId: string,
     comment: string,
     likes: number,
