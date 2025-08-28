@@ -1,5 +1,5 @@
 export interface Reel {
-    _id: string,
+    id: string,
     productId: string,
     commentsId: Array<string>,
     likes: number,

@@ -77,8 +77,13 @@ export class ApiService {
     );
   }
 
-  getReel() : Observable<Reel> {
-    return this.http.get<Reel>(`${this.apiRoute}/reel`);
+  getReel(id: string | undefined) : Observable<Reel> {
+    let url = `${this.apiRoute}/reel`;
+    if (id) {
+      url += '/' + id;
+    }
+    
+    return this.http.get<Reel>(url);
   }
   getReelComments(reelId: string) : Observable<Array<ReelComment>> {
     return this.http.get<Array<ReelComment>>(`${this.apiRoute}/reel/comments/${reelId}`);

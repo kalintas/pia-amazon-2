@@ -1,65 +1,113 @@
 import { NgStyle } from '@angular/common';
-import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
+import { Component, effect, HostListener, inject, Input, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
 import { Product } from '../interfaces/product';
 import { Reel } from '../interfaces/reel';
 
 @Component({
-  selector: 'app-reels-page',
-  imports: [NgStyle],
-  templateUrl: './reels-page.html',
-  styleUrl: './reels-page.css',
+    selector: 'app-reels-page',
+    imports: [NgStyle],
+    templateUrl: './reels-page.html',
+    styleUrl: './reels-page.css',
 })
 export class ReelsPage {
-  apiService: ApiService = inject(ApiService);
-  commentsEnabled = signal(false);
+    apiService: ApiService = inject(ApiService);
+    commentsEnabled = signal(false);
 
-  reel: WritableSignal<Reel | null> = signal(null);
-  product: WritableSignal<Product | null> = signal(null);
+    reelIds: Array<string> = [];
+    currentReelIndex: WritableSignal<number> = signal(0);
 
-  constructor(private router: Router) {}
+    reel: WritableSignal<Reel | null> = signal(null);
+    product: WritableSignal<Product | null> = signal(null);
 
-  ngOnInit() {
-    this.fetchReel();
-  }
+    canSwipe = true;
+    Array = Array;
 
-  fetchReel() {
-    this.apiService.getReel().subscribe((reel: Reel) => {
-      this.apiService
-        .getProduct(reel.productId)
-        .subscribe((product: Product) => {
-          this.product.set(product);
-          console.log(product);
+    constructor(private router: Router) {
+        effect(() => {
+            const index = this.currentReelIndex();
+            this.fetchReel(index);
         });
-      this.reel.set(reel);
-    });
-  }
-
-  like_number = 0;
-  dislike_number = 0;
-  comment_number = 0;
-
-  increaseLike() {
-    return (this.like_number = this.like_number + 1);
-  }
-
-  increaseDislike() {
-    return (this.dislike_number = this.dislike_number + 1);
-  }
-
-  increaseComment() {
-    this.comment_number = this.comment_number + 1;
-  }
-
-  backToHomePage() {
-    this.router.navigate(['home']);
-  }
-
-  goToProductPage() {
-    const product = this.product();
-    if (product) {
-      this.router.navigate(['product', product.id])
     }
-  }
+
+    fetchReel(index: number) {
+        this.canSwipe = false;
+        let id = undefined;
+        if (index < this.reelIds.length && this.reelIds[index]) {
+            id = this.reelIds[index]
+        }
+
+        this.apiService.getReel(id).subscribe((reel: Reel) => {
+            if (!reel) {
+                return;
+            }
+            console.log(reel)
+            this.apiService
+                .getProduct(reel.productId)
+                .subscribe((product: Product) => {
+                    this.product.set(product);
+                    console.log(product);;
+                });
+            this.reel.set(reel);
+            if (index >= this.reelIds.length) {
+                console.log(reel.id);
+                this.reelIds.push(reel.id);
+            }
+            this.canSwipe = true;
+        });
+    }
+
+
+    increaseLike() {
+    }
+
+    increaseDislike() {
+    }
+
+    increaseComment() {
+    }
+
+    backToHomePage() {
+        this.router.navigate(['home']);
+    }
+
+    goToProductPage() {
+        const product = this.product();
+        if (product) {
+            this.router.navigate(['product', product.id])
+        }
+    }
+
+    // Either a negative or a positive number
+    lastSwipe = 0;
+
+    @HostListener('wheel', ['$event'])
+    onSwipe(event: WheelEvent) {
+        event.preventDefault();
+
+        const THRESHOLD = 10;
+
+        if (!this.canSwipe) {
+            return;
+        }
+
+        if (Math.sign(this.lastSwipe) === Math.sign(event.deltaY) && Math.abs(event.deltaY) > THRESHOLD) {
+            return;
+        }
+
+        if (event.deltaY > THRESHOLD) {
+            // Get next reel.
+            console.log("Next")
+            this.currentReelIndex.update((index) => index + 1);
+            this.lastSwipe = event.deltaY;
+        } else if (event.deltaY < -THRESHOLD) {
+            // Get prev reel.
+            console.log("Prev")
+            this.currentReelIndex.update((index) => Math.max(0, index - 1));
+            this.lastSwipe = event.deltaY;
+        } else {
+            this.lastSwipe = 0;
+        }
+    }
 }

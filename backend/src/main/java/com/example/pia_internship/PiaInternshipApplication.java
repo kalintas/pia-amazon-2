@@ -292,6 +292,17 @@ public class PiaInternshipApplication {
     }
 
     @CrossOrigin(origins = corsOrigin, allowCredentials = "true")
+    @GetMapping("/api/reel/{id}")
+    public ResponseEntity<Reel> reel(@CookieValue(value = "token", required = false) String token, @PathVariable String id) {
+        var optionalReel = reelRepository.findById(id);
+        if (optionalReel.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(optionalReel.get());
+    }
+
+
+    @CrossOrigin(origins = corsOrigin, allowCredentials = "true")
     @GetMapping("/api/reel/comments/{id}")
     public ResponseEntity<ReelComment> reelComments(@PathVariable String reelId) {
         var optionalReelComments = reelCommentsRepository.findByReelId(reelId);

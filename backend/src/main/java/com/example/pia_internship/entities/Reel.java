@@ -1,5 +1,6 @@
 package com.example.pia_internship.entities;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,7 +11,7 @@ public class Reel {
     @Id
     private String id;
     private String productId;
-    private List<String> commentIds;
+    private List<ObjectId> commentsId;
     private int likes;
     private int dislikes;
 
@@ -44,5 +45,13 @@ public class Reel {
 
     public void setProductId(String productId) {
         this.productId = productId;
+    }
+
+    public List<ObjectId> getCommentsId() {
+        return commentsId;
+    }
+
+    public void setCommentsId(List<ObjectId> commentsId) {
+        this.commentsId = commentsId;
     }
 }

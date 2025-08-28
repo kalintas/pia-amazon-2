@@ -33,9 +33,10 @@ async function populateDatabase() {
     const db = client.db('pia-db');
     const products = await db.collection("products").find().toArray();
 
-    await db.collection("reels").deleteMany({});
-
     const reelCommentsCollection = db.collection("reelComments");
+
+    await db.collection("reels").deleteMany({});
+    await reelCommentsCollection.deleteMany({});
 
     const reels = await Promise.all(products.map(async (product) => {
 
