@@ -15,6 +15,7 @@
   color: #1f2937;
   letter-spacing: 0.5px;
   margin-bottom: 18px;
+  user-select: none;
 }
 
 .reels-screen {
@@ -39,6 +40,7 @@
   background: #000;
   object-fit: cover;
   cursor: pointer;
+  user-select: none;
 }
 
 .info-overlay {
@@ -63,6 +65,7 @@
   font-weight: 700;
   margin: 0 0 6px 0;
   text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+  user-select: none;
 }
 
 .reels-product-info {
@@ -71,6 +74,7 @@
   align-items: center;
   gap: 10px 14px;
   margin: 0;
+  user-select: none;
 }
 
 .reel-price {
@@ -81,6 +85,7 @@
   font-weight: 700;
   font-size: 0.95rem;
   box-shadow: 0 6px 18px rgba(29, 78, 216, 0.35);
+  user-select: none;
 }
 
 .reel-description {
@@ -94,27 +99,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-shadow: 0 2px 6px rgba(0,0,0,0.35);
-}
-
-.back-to-home {
-  background: #1565c0;
-  color: #fff;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1em;
-  transition: background 0.2s, transform 0.12s ease, box-shadow 0.2s ease;
-  position: fixed;
-  top: 24px;
-  left: 24px;
-  z-index: 10;
-  box-shadow: 0 8px 18px rgba(29, 78, 216, 0.25);
-}
-
-.back-to-home:hover {
-  background: #1d4ed8;
-  transform: translateY(-1px);
+  user-select: none;
 }
 
 .reaction-btn {
@@ -135,6 +120,7 @@
   cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s ease;
   z-index: 5;
+  user-select: none;
 }
 
 .reaction-btn:hover {
@@ -185,6 +171,7 @@
 }
 
 .comments-container {
+  position: relative;
   width: min(92vw, 640px);
   max-height: min(80vh, 680px);
   overflow: auto;
@@ -228,8 +215,6 @@
   cursor: pointer;
 }
 
-
-
 @media (max-width: 640px) {
   .title {
     font-size: 1.6rem;
@@ -262,4 +247,62 @@
   .comments-btn {
     top: calc(50% + 72px);
   }
+}
+
+.submission-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    padding: 100px 40px 100px 40px;
+    border-radius: 12px;
+    width: min(90vw, 360px);
+    text-align: center;
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(18, 38, 63, 0.24);
+    padding-left: 65px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+}
+
+.close-btn:hover {
+    color: #ff0000;
+}
+
+.ok-btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s ease;
+}
+
+.ok-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.ok-btn:active {
+    transform: translateY(1px);
+}
+
+app-footer {
+    display: flex;
+    background-color: #fafafa;
+    justify-content: center;
+    width: 100%;
 }
