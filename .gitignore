@@ -1,5 +1,6 @@
 **/private-key.json
 .env
+**/environment.ts
 
 # Playwright
 node_modules/
