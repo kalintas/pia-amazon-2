@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 90vh;
   text-align: center;
   background: #f9f9f9;
   border-color: #1d4ed8;
@@ -134,17 +134,17 @@
 
 .like-btn {
   top: calc(50% - 68px);
-  background: #16a34a;
+  background: #D7CCC8;
   color: #ffffff;
 }
 .dislike-btn {
   top: calc(50% + 12px);
-  background: #ef4444;
+  background: #D7CCC8;
   color: #ffffff;
 }
 .comments-btn {
   top: calc(50% + 92px);
-  background: #0ea5e9;
+  background: #D7CCC8;
   color: #ffffff;
 }
 

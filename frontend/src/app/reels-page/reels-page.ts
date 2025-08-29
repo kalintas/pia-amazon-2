@@ -113,10 +113,13 @@ export class ReelsPage {
   onSwipe(event: WheelEvent) {
     event.preventDefault();
 
-    const THRESHOLD = 10;
+    const THRESHOLD = 400;
 
     if (!this.canSwipe) {
       return;
+    }
+    if (event.deltaY === -0 || event.deltaY === 0) {
+      return
     }
 
     if (
@@ -125,7 +128,7 @@ export class ReelsPage {
     ) {
       return;
     }
-
+    console.log(event.deltaY)
     if (event.deltaY > THRESHOLD) {
       // Get next reel.
       console.log('Next');
