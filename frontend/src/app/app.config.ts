@@ -8,7 +8,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideHttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { environment } from './api-key';
+import { environment } from './environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
