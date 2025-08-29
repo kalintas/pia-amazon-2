@@ -16,7 +16,7 @@ async function populateDatabase() {
 
     //await productsCollection.deleteMany({});
 
-    const browser = await playwright['firefox'].launch({ headless: false });
+    const browser = await playwright['firefox'].launch({ headless: true });
     const context = await browser.newContext();
     const page = await context.newPage();
 
