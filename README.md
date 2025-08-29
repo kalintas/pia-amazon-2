@@ -2,6 +2,10 @@
 
 A full-stack web application inspired by Amazon, built for internship learning purposes. The project consists of a Java Spring Boot backend, an Angular frontend, and MongoDB for data storage. It includes features such as user authentication, product browsing, cart management, and a reels (short video) system.
 
+![Home page](https://raw.githubusercontent.com/kalintas/pia-amazon-2/refs/heads/main/screenshots/home.png)
+
+![Reels page](https://raw.githubusercontent.com/kalintas/pia-amazon-2/refs/heads/main/screenshots/reels.png)
+
 ## Project Structure
 
 ```
