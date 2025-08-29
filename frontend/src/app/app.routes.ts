@@ -31,10 +31,6 @@ export const routes: Routes = [
     canActivate: [CanActivateProfile]
   },
   {
-    path: 'home',
-    component: Home
-  },
-  {
     path: 'reels',
     component: ReelsPage
   },

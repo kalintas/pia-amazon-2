@@ -1,29 +1,45 @@
-const { MongoClient, listDatabases } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const playwright = require('playwright');
 
 const databaseUri = "mongodb://root:root@localhost:27017/?authSource=admin";
 
 const categories = [];
 
+const sleep = async (wait) => new Promise((resolve) => setTimeout(() => resolve(), wait));
+
 async function populateDatabase() {
-    /*
+    
     const client = new MongoClient(databaseUri);
 
     await client.connect();
-    const users = await client.db("pia-db").collection("products").find().toArray();
-    */
+    const productsCollection = client.db("pia-db").collection("products");
+
+    //await productsCollection.deleteMany({});
 
     const browser = await playwright['firefox'].launch({ headless: false });
     const context = await browser.newContext();
     const page = await context.newPage();
 
     const openCategoryMenu = async () => {
+        // Wait for the main "All" button to open the menu
         await page.getByRole('button', { name: 'Open All Categories Menu' }).waitFor({ state: 'visible' });
         await page.locator('#nav-main div').filter({ hasText: 'All' }).click();
-        await page.getByRole('list').filter({ hasText: 'ElectronicsComputersSmart' }).getByLabel('See all').click();
+
+        // Wait for menu content
+        await page.locator('#hmenu-content').first().waitFor({ state: 'visible' });
+
+        // Check if "See all" exists and click it once
+        const seeAll = page.getByRole('link', { name: 'See all' }).first();
+        if (await seeAll.isVisible()) {
+            await seeAll.click();
+        } else {
+            console.error("seeAll is not visible")
+        }
     };
 
+
     await page.goto('https://amazon.com');
+    await page.waitForTimeout(1000);
     await openCategoryMenu();
 
     const buttons = page.getByRole('button');
@@ -33,41 +49,71 @@ async function populateDatabase() {
         categories.push(text);
     }
     console.log("Fetched categories: ", categories);
+
+    await page.getByRole('button', { name: 'Close menu' }).click();
+
+    let addedProducts = 0;
+
     for (const category of categories) {
-        console.log(category)
-        await page.getByRole('button', { name: category, exact: true }).click();
-        const content = page.locator('#hmenu-content').first();
-        content.waitFor({ state: 'visible' });
-        const links = content.locator("ul > li").getByRole('link');
-        console.log(await links.allInnerTexts());
+        try {
+        const searchBox = page.getByRole('searchbox', { name: 'Search Amazon' });
 
-        /*
-        const count = await links.count();
-        
-        console.log(`Under category${category}. Found ${count} match.`);
-        for (let i = 0; i < count; ++i) {
-            if (!(await links[i].isVisible())) continue;
-            const text = await links.nth(i).innerText();
-            console.log(text);
-            //await links.nth(i).click();
+        await searchBox.click({ force: true });
+        const seed = (Math.random() + 1).toString(36).substring(9);
+        await searchBox.fill(category + " " + seed);
+        // Search
+        await page.getByRole('button', { name: 'Go', exact: true }).click();
+        await page.waitForTimeout(2000)
+
+        await page.waitForSelector('#search a.a-link-normal.s-no-outline');
+
+        const products = page.locator('.puis-card-container');
+            
+        const productCount = await products.count();
+
+        console.log(productCount)
+
+        for (let i = 0; i < productCount; i++) {
+            const product = products.nth(i);
+            
+            product.waitFor({ state: 'visible' });
+            const title = await product.locator('h2 span').textContent().catch(() => null);
+            const image = await product.locator('img.s-image').first().getAttribute('src').catch(() => null);
+
+            let price = await product.locator('span.a-color-base').last().innerText({ timeout: 500 }).catch(() => null);
+            if (price === null || !price.includes('$')) {
+                price = await product.locator('span.a-offscreen').first().innerText({ timeout: 500 }).catch(() => null);
+            }
+
+            productsCollection.insertOne({
+                _id: (new ObjectId()).toString(),
+                name: title,
+                category,
+                description: "",
+                price: price ? parseInt(price.replace('$', '')) : Math.floor(Math.random() * 200) + 20,
+                imageUrl: image
+            });
+            addedProducts += 1;
         }
-        console.log();*/
+        
+        console.log(`Added ${addedProducts} products.`);
 
-        await page.getByRole('button', { name: 'Close menu' }).click();
-        await openCategoryMenu();
-        console.log('saaaa')
-        await new Promise((resolve, reject) => { setTimeout(() => resolve(), 1000)})
+        await page.waitForTimeout(500)
+        } catch (error) {
+            console.error(`Caught error while scraping ${category}: `, error)
+        }
     }
 
-    await page.waitForTimeout(100000);
-    //await browser.close();
+    console.log("Finished fetching products")
+
+    await browser.close();
 }
 
 if (require.main) {
     populateDatabase()
-    .catch((error) => {
-        console.error("Could not populate the database: ", error)
-    })
-    .then();
+        .catch((error) => {
+            console.error("Could not populate the database: ", error)
+        })
+        .then();
 }
 

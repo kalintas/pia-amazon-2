@@ -27,6 +27,10 @@ export class Header {
   }
 
   reloadPage () {
-    this.router.navigate(['home']);
+    if (this.router.url === '/') {
+      window.location.reload()
+    } else {
+      this.router.navigate(['']);
+    }
   }
 }
